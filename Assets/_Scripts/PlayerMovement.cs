@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour
 {
     private float direction;
@@ -43,14 +44,15 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (touchAction.WasPressedThisFrame() && IsGrounded())
+        
+        if (/*touchAction.WasPressedThisFrame()*/Input.GetMouseButtonDown(0) && IsGrounded())
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
         }
 
-        if (touchAction.WasReleasedThisFrame() && rb.velocity.y > 0f)
+        if (/*touchAction.WasReleasedThisFrame()*/Input.GetMouseButtonUp(0) && rb.linearVelocity.y > 0f)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
         }
 
         WallSlide();
@@ -68,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!fallstraight && !isWallSliding)
         {
-            rb.velocity = new Vector2(direction * speed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(direction * speed, rb.linearVelocity.y);
         }
 
         //OneWayPlatform handler **NAPOMENTA** promeni poziciju iz koje pucas ray ako promenis debljinu platforme
@@ -98,8 +100,8 @@ public class PlayerMovement : MonoBehaviour
         if (IsWalled() && !IsGrounded())
         {
             isWallSliding = true;
-            rb.velocity = new Vector2(0, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
-            if (rb.velocity.y <0){
+            rb.linearVelocity = new Vector2(0, Mathf.Clamp(rb.linearVelocity.y, -wallSlidingSpeed, float.MaxValue));
+            if (rb.linearVelocity.y <0){
             fallstraight = true;}
         }
         else
@@ -112,7 +114,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isWallSliding)
         {
-            //isWallJumping = false;
             wallJumpingDirection = -transform.localScale.x;
             wallJumpingCounter = wallJumpingTime;
 
@@ -123,11 +124,10 @@ public class PlayerMovement : MonoBehaviour
             wallJumpingCounter -= Time.deltaTime;
         }
 
-        if (touchAction.WasPressedThisFrame() && wallJumpingCounter > 0f)
+        if (/*touchAction.WasPressedThisFrame()*/Input.GetMouseButtonDown(0) && wallJumpingCounter > 0f)
         {
-            //isWallJumping = true;
             fallstraight = false;
-            rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            rb.linearVelocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
 
             if (transform.localScale.x != wallJumpingDirection)
