@@ -6,66 +6,174 @@
             "id": "43510421-8630-416f-bee6-2b75de0889a5",
             "actions": [
                 {
-                    "name": "TapStart",
+                    "name": "Tap",
                     "type": "Button",
-                    "id": "90bf8f90-0a9a-461c-ba5d-798feabc1e89",
-                    "expectedControlType": "Button",
+                    "id": "d828561b-ea8c-44c7-9104-42660cc2ca12",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "TapRelease",
+                    "name": "Drag",
+                    "type": "Value",
+                    "id": "0b6791cd-e72b-4adb-8871-87ca29ce6695",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Pinch",
                     "type": "Button",
-                    "id": "e62b801a-7fd9-44be-b75d-8d8702ccbd75",
-                    "expectedControlType": "Button",
+                    "id": "96d883bc-8d65-4987-8901-7861babfc0f3",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Touch",
-                    "type": "Button",
-                    "id": "131d0ff0-3f47-48ce-bab0-c6b73f4e1844",
-                    "expectedControlType": "Button",
+                    "name": "Swipe",
+                    "type": "Value",
+                    "id": "ffa2bf64-262e-486a-8fe1-7b6de32cc823",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "7ead6ec2-8e84-4f13-bad2-c2029b7e1310",
-                    "path": "<Touchscreen>/Press",
-                    "interactions": "Press",
+                    "id": "21723645-9350-4bb7-bc52-b7f1854e3bc8",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TapStart",
+                    "action": "Tap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "4aa8c356-7370-4299-b115-2f783307bbf3",
-                    "path": "<Touchscreen>/Press",
-                    "interactions": "Press(behavior=1)",
+                    "id": "d9115b33-dfcd-409e-8380-84b7c875eabe",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TapRelease",
+                    "action": "Tap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "23190eb4-ce02-47aa-8796-b808bf1f2669",
+                    "id": "69076b6f-c44a-439a-8ef0-00bd68cbfd44",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "06c0d8c2-120e-4ed3-b227-74015a0f133a",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swipe",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Modifier",
+                    "id": "9776bb54-ec0a-4eed-8a8d-3e110cb2d5e2",
                     "path": "<Touchscreen>/Press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Touch",
+                    "action": "Swipe",
                     "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Binding",
+                    "id": "bee5b730-00ce-4f35-bf05-aea460e45e96",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swipe",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "5fb02708-61dd-4b18-b100-100b1ff10bea",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swipe",
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "03be21c0-ec48-4dd2-a1b7-de4f0d5da1c5",
+                    "path": "<Mouse>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swipe",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "ac037b2b-3bcc-4bf1-992a-df95a4077e44",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swipe",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "a4020355-3694-4ae7-970b-ad576498b1fd",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pinch",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "bc932dc1-1ab4-4614-8c82-72a6c49ded7a",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pinch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "bab868ba-44bf-46f2-b23f-36a89af069e5",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pinch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

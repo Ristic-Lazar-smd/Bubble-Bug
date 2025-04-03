@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake(){
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
-        touchAction = playerInput.actions["Touch"];
+        //touchAction = playerInput.actions["Touch"];
     }
     private void Start(){
         direction = 1;
