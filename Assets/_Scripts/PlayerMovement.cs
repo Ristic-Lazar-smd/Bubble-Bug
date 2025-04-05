@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using System;
+using Unity.VisualScripting;
 public class PlayerMovement : MonoBehaviour
 {
     private float direction;
@@ -9,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     public float jumpingPower = 8f;
     public float wallSlidingSpeed = 0.5f;
     private bool isWallSliding;
-    //private bool isWallJumping;
     private float wallJumpingDirection;
     private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
@@ -21,8 +22,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
-    private PlayerInput playerInput;
-    InputAction touchAction;
     bool fallstraight = true;
     private GameObject OneWayPlatform;
 
@@ -35,26 +34,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake(){
         rb = GetComponent<Rigidbody2D>();
-        playerInput = GetComponent<PlayerInput>();
-        //touchAction = playerInput.actions["Touch"];
     }
     private void Start(){
         direction = 1;
         rb.transform.position = new Vector3(0,-3.5f,0);
     }
-    private void Update()
-    {
-        
-        if (/*touchAction.WasPressedThisFrame()*/Input.GetMouseButtonDown(0) && IsGrounded())
-        {
+
+    void OnTouch(InputValue value){
+
+        //Player Jump, on finger down apply up velocity, if finger up before peak of jump, apply down velocity
+        //Finger down
+        if (value.isPressed && IsGrounded()){
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
         }
-
-        if (/*touchAction.WasReleasedThisFrame()*/Input.GetMouseButtonUp(0) && rb.linearVelocity.y > 0f)
-        {
+        //Finger up
+        else if (rb.linearVelocity.y > 0f){
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
         }
+    }
 
+    private void Update()
+    {
         WallSlide();
         WallJump();
 
@@ -68,9 +68,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        //Moves player left - right
         if (!fallstraight && !isWallSliding)
         {
-            rb.linearVelocity = new Vector2(direction * speed, rb.linearVelocity.y);
+           rb.linearVelocity = new Vector2(direction * speed, rb.linearVelocity.y);
         }
 
         //OneWayPlatform handler **NAPOMENTA** promeni poziciju iz koje pucas ray ako promenis debljinu platforme
