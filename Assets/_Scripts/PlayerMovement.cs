@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     private float wallJumpingDirection;
     private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
-    private float wallJumpingDuration = 0.3f;
     public Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
     private Rigidbody2D rb;
@@ -65,7 +64,6 @@ public class PlayerMovement : MonoBehaviour
                 localScale.x *= -1f;
                 transform.localScale = localScale;
             }
-            Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }
         //Wall Jump Handler end 
     }
@@ -122,16 +120,10 @@ public class PlayerMovement : MonoBehaviour
         if (isWallSliding){
             wallJumpingDirection = -transform.localScale.x;
             wallJumpingCounter = wallJumpingTime;
-
-            CancelInvoke(nameof(StopWallJumping));
         }
         else{
             wallJumpingCounter -= Time.deltaTime;
         }
-    }
-
-    private void StopWallJumping(){
-        //isWallJumping = false;
     }
 
     private void Flip(){
