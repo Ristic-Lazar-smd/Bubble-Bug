@@ -14,8 +14,8 @@ public class Score : MonoBehaviour
     [SerializeField]private float pastRoomScoreWorth;
 
 
-
-    void OnCollisionEnter2D(Collision2D col){
+    //prebaciti u game manager
+   /* void OnCollisionEnter2D(Collision2D col){
         if(!col.gameObject.CompareTag("OneWayPlatform"))return;
         if(col.gameObject != ignoredGameObject){
             ignoredGameObject = col.gameObject;
@@ -32,5 +32,5 @@ public class Score : MonoBehaviour
             }
         }
         
-    }
+    }*/
 }
