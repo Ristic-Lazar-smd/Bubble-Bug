@@ -8,6 +8,7 @@ public class CameraManager : MonoBehaviour
 {
     private Coroutine activeSequence;
     private bool skipRequested;
+    public bool isShifting;
     public static CameraManager Instance { get; private set; }
     [SerializeField] private CinemachineBrain cinemachineBrain;
     [SerializeField] private Camera mainCamera;
@@ -52,7 +53,17 @@ public class CameraManager : MonoBehaviour
     }
 
     void Update(){
+        if(isShifting == false && activeSequence == null)
+        {
+            isShifting = true;
+            MenuManager.Instance.Menus[3].SetActive(true);
+        }
         if (Input.GetKeyDown(KeyCode.Space) && activeSequence == null)
-            SwitchToVirtualCamera("PlayCamera");
+            StartGame();
+    }
+
+    public void StartGame()
+    {
+        SwitchToVirtualCamera("PlayCamera");
     }
 }
