@@ -279,10 +279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b349de368e0d5ea4181db885ec03ca79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  jumpingPower: 7
-  wallSlidingSpeed: 0.75
-  wallJumpingPower: {x: 6, y: 7.5}
   groundCheck: {fileID: 2218329448172085472}
   wallCheck: {fileID: 6842738624559191614}
   groundLayer:
@@ -291,6 +287,12 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
+  speed: 2
+  jumpingPower: 7
+  wallSlidingSpeed: 0.75
+  wallJumpCoyoteWindow: 0.2
+  jumpCoyoteWindow: 0.2
+  wallJumpingPower: {x: 6, y: 7.5}
   showHitBox: 1
   wallHitBoxSize: 0.12
   groundHitBoxSize: 0.14

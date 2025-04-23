@@ -3,26 +3,27 @@ using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using System;
-using Unity.VisualScripting;
 public class PlayerMovement : MonoBehaviour
 {
-    private float direction;
-    public float speed = 1f;
-    public float jumpingPower = 8f;
-    public float wallSlidingSpeed = 0.5f;
-    private bool isWallSliding;
-    private float wallJumpingDirection;
-    private float wallJumpingTime = 0.2f;
-    private float wallJumpingCounter;
-    public Vector2 wallJumpingPower = new Vector2(8f, 16f);
-
-    private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
-    bool fallstraight = true;
     private GameObject OneWayPlatform;
+    private float direction;
+    private bool isWallSliding;
+    private float wallJumpingDirection;
+    private float wallJumpCoyoteTimer;
+    private float jumpCoyoteTimer;
+    public float speed = 1f;
+    public float jumpingPower = 8f;
+    public float wallSlidingSpeed = 0.5f;
+    public float wallJumpCoyoteWindow = 0.2f;
+    public float jumpCoyoteWindow = 0.2f;
+    public Vector2 wallJumpingPower = new Vector2(8f, 16f);
+
+    private Rigidbody2D rb;
+    bool fallstraight = true;
 
     
     [Header ("HitBox")]
@@ -43,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Player Jump, on finger down apply up velocity, if finger up before peak of jump, apply down velocity
         //Finger down
-        if (value.isPressed && IsGrounded()){
+        if (value.isPressed && IsGrounded() || value.isPressed && jumpCoyoteTimer>0){
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
         }
         //Finger up
@@ -52,10 +53,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Wall Jump Handler start 
-        if (value.isPressed && wallJumpingCounter > 0f){
+        if (value.isPressed && wallJumpCoyoteTimer > 0f){
             fallstraight = false;
             rb.linearVelocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
-            wallJumpingCounter = 0f;
+            wallJumpCoyoteTimer = 0f;
 
             if (transform.localScale.x != wallJumpingDirection){
                 if(direction == 1)direction = -1;
@@ -77,7 +78,10 @@ public class PlayerMovement : MonoBehaviour
         }
         if (IsGrounded()){
             fallstraight = false;
+        }else {
+            jumpCoyoteTimer = jumpCoyoteWindow;
         }
+        jumpCoyoteTimer -= Time.deltaTime;
     }
     private void FixedUpdate(){
         //Moves player left - right
@@ -119,10 +123,10 @@ public class PlayerMovement : MonoBehaviour
     private void WallJump(){
         if (isWallSliding){
             wallJumpingDirection = -transform.localScale.x;
-            wallJumpingCounter = wallJumpingTime;
+            wallJumpCoyoteTimer = wallJumpCoyoteWindow;
         }
         else{
-            wallJumpingCounter -= Time.deltaTime;
+            wallJumpCoyoteTimer -= Time.deltaTime;
         }
     }
 
