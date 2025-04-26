@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a702548f437ea0b4fade458e9c38f0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainCamera: {fileID: 0}
+  isShifting: 0
+  cinemachineBrain: {fileID: 0}
+  mainCamera: {fileID: 0}
   _allCameras:
   - label: Intro1
     virtualCamera: {fileID: 0}
