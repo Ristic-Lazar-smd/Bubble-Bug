@@ -76,12 +76,11 @@ GameObject:
   - component: {fileID: 3820135998266445301}
   - component: {fileID: 3480702324004497766}
   - component: {fileID: 6650038401548068328}
-  - component: {fileID: 390125989053430103}
   - component: {fileID: 3639022458320339448}
   - component: {fileID: 7559584372161389156}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -296,20 +295,6 @@ MonoBehaviour:
   showHitBox: 1
   wallHitBoxSize: 0.12
   groundHitBoxSize: 0.14
---- !u!114 &390125989053430103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2148014275232461975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c13e95a2c527b0f4a9e5dfd261073496, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnOffset: 20
-  lvls: []
 --- !u!114 &3639022458320339448
 MonoBehaviour:
   m_ObjectHideFlags: 0

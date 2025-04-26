@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomGenerator : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
+    public static LevelManager Instance { get; private set; }
+    [SerializeField]private LevelInfo[] levels;
     [SerializeField]private float spawnOffset;
-    [SerializeField]private Object[] lvls;
     GameObject[] toDelete;
     private int n = 2;
     GameObject toSpawn;
@@ -13,20 +12,25 @@ public class RoomGenerator : MonoBehaviour
 
     int pastRoll;
     int thisRoll;
-   
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start(){
         toDelete = new GameObject[] { null, null, null,null,null };
-        lvls = Resources.LoadAll("Levels");
+        //lvls = Resources.LoadAll("Levels");
         InitialSpawn();
+        Debug.Log(levels.Length);
     }
 
     
-    private void SpawnRandom(Vector3 triggerPoint){
-        toSpawn = (GameObject)lvls[NewRoll()];
+    public void SpawnRandom(Vector3 triggerPoint){
+        toSpawn = levels[NewRoll()].LevelPrefab;
         spawnPoint = triggerPoint + new Vector3(0,spawnOffset);
         toDelete[n] = Instantiate(toSpawn, spawnPoint, Quaternion.identity) as GameObject;
-        DeleteRooms();
+        //DeleteRooms();
     }
 
     private void DeleteRooms(){
@@ -55,12 +59,12 @@ public class RoomGenerator : MonoBehaviour
     }
 
     private void InitialSpawn(){
-        thisRoll = Random.Range(0, lvls.Length);
-        toSpawn = (GameObject)lvls[thisRoll];
+        thisRoll = Random.Range(0, levels.Length);
+        toSpawn = levels[thisRoll].LevelPrefab;
         GameObject x = Instantiate(toSpawn, new Vector2(0,1), Quaternion.identity) as GameObject;
         toDelete[0] = x;
 
-        toSpawn = (GameObject)lvls[NewRoll()];
+        toSpawn = levels[NewRoll()].LevelPrefab;
         toDelete[1] = Instantiate(toSpawn, new Vector2(0,11), Quaternion.identity) as GameObject;
     }
 
@@ -68,7 +72,7 @@ public class RoomGenerator : MonoBehaviour
     private int NewRoll(){
         pastRoll = thisRoll;
         while (thisRoll == pastRoll){
-            thisRoll = Random.Range(0, lvls.Length);
+            thisRoll = Random.Range(0, levels.Length);
         }
         return thisRoll;
     }
@@ -78,5 +82,6 @@ public class RoomGenerator : MonoBehaviour
             SpawnRandom(col.gameObject.transform.parent.gameObject.transform.position);
             col.enabled=false;
         }
+        Debug.Log("spawn random");
     }
 }
