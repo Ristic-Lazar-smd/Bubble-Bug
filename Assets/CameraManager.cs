@@ -56,7 +56,7 @@ public class CameraManager : MonoBehaviour
         if(isShifting == false && activeSequence == null)
         {
             isShifting = true;
-            MenuManager.Instance.Menus[3].SetActive(true);
+            MenuManager.Instance.OpenMenu(MenuType.Title);
         }
         if (Input.GetKeyDown(KeyCode.Space) && activeSequence == null)
             StartGame();

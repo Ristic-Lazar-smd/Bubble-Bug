@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Shop : MonoBehaviour
+public class ShopMenu : Menu
 {
     [SerializeField] private TextMeshProUGUI amountNumberTxt;
     [SerializeField] private Slider slider;

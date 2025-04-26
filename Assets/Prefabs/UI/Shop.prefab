@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c182c734aea07a4e8e9c06f3e02fb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MenuType>k__BackingField: 2
   amountNumberTxt: {fileID: 170373809747475577}
   slider: {fileID: 6071023526931385233}
   lootPrefabGo: {fileID: 6550483361606801858, guid: eca5d880928287d459db74d829c10fc0, type: 3}
@@ -1178,6 +1179,7 @@ GameObject:
   - component: {fileID: 2230767664921919060}
   - component: {fileID: 4144731569915971670}
   - component: {fileID: 453525388181462003}
+  - component: {fileID: 4275850972438042412}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -1286,31 +1288,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4144731569915971670}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1065859101550803222}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &4275850972438042412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3587589536358990873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 682aa3d053904094a93647d47d29e5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuType: 5
 --- !u!1 &3952480739119706559
 GameObject:
   m_ObjectHideFlags: 0

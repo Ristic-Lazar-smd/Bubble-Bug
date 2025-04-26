@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3297298312290923671}
-  - component: {fileID: 24063856408184725}
+  - component: {fileID: 9146224830175446044}
   m_Layer: 0
   m_Name: MenuManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &24063856408184725
+--- !u!114 &9146224830175446044
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,8 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e816ab4a1e81e0f4e99cc210f0567127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Menus:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  CurrentMenu: {fileID: 0}
+  bgCanvas: {fileID: 0}

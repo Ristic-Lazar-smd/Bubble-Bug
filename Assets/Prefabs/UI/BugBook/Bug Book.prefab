@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4940374070823433911}
   - component: {fileID: 6218051409748989430}
   - component: {fileID: 4062834235784417539}
+  - component: {fileID: 6203426356781482298}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -120,31 +121,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6218051409748989430}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7041480550983264862}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &6203426356781482298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310407431187263058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 682aa3d053904094a93647d47d29e5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuType: 5
 --- !u!1 &3230290397929076553
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,6 +283,7 @@ GameObject:
   - component: {fileID: 6781067453167132268}
   - component: {fileID: 6821652564806691771}
   - component: {fileID: 8463549535062835081}
+  - component: {fileID: 3936122941310056075}
   m_Layer: 5
   m_Name: Bug Book
   m_TagString: Untagged
@@ -384,6 +375,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3936122941310056075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7041480550983264862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14810598dfd6d264e952579a35fb73d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MenuType>k__BackingField: 7
 --- !u!1 &7725661127485259792
 GameObject:
   m_ObjectHideFlags: 0
