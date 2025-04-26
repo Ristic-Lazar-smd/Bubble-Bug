@@ -22,7 +22,6 @@ public class LevelManager : MonoBehaviour
         toDelete = new GameObject[] { null, null, null,null,null };
         //lvls = Resources.LoadAll("Levels");
         InitialSpawn();
-        Debug.Log(levels.Length);
     }
 
     
@@ -82,6 +81,5 @@ public class LevelManager : MonoBehaviour
             SpawnRandom(col.gameObject.transform.parent.gameObject.transform.position);
             col.enabled=false;
         }
-        Debug.Log("spawn random");
     }
 }
