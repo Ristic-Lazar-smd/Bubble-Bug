@@ -77,7 +77,6 @@ GameObject:
   - component: {fileID: 3480702324004497766}
   - component: {fileID: 6650038401548068328}
   - component: {fileID: 3639022458320339448}
-  - component: {fileID: 7559584372161389156}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -307,21 +306,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 786e5ce4c6e01be45acc466301a1cbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7559584372161389156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2148014275232461975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f10987b186bcaa741b4031a1061340c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreUi: {fileID: 0}
-  score: 0
-  scoreModifier: 1
-  scoreModifierTreshold: 10
-  currentRoomScoreWorth: 0
-  pastRoomScoreWorth: 0
