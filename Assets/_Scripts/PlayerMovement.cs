@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using System;
+using UnityEditor.Experimental.GraphView;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform groundCheck;
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private float wallJumpCoyoteTimer;
     private float jumpCoyoteTimer;
     public float speed = 1f;
+    [SerializeField]private int maxJumps;
     public float jumpingPower = 8f;
     public float wallSlidingSpeed = 0.5f;
     public float wallJumpCoyoteWindow = 0.2f;
@@ -32,6 +34,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]float wallHitBoxSize;
     [SerializeField]float groundHitBoxSize;
 
+
+    private int jumpCounter;
+    private bool isGrounded;
+    public bool IsGrounded{
+        get {return isGrounded;}
+        set{
+            if (isGrounded != value){
+                isGrounded = value;
+                //Menjam promenljive kada preko setera promenim IsGrounded
+                if (isGrounded){
+                    jumpCounter = 0;
+                    jumpCoyoteTimer = jumpCoyoteWindow;
+                }
+            }
+        }
+    }
+
+    //------------------------------------------------//
+
     private void Awake(){
         rb = GetComponent<Rigidbody2D>();
     }
@@ -44,8 +65,11 @@ public class PlayerMovement : MonoBehaviour
 
         //Player Jump, on finger down apply up velocity, if finger up before peak of jump, apply down velocity
         //Finger down
-        if (value.isPressed && IsGrounded() || value.isPressed && jumpCoyoteTimer>0){
+        if (value.isPressed && CanJump()){
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+            jumpCounter++;
+            Debug.Log(jumpCoyoteTimer);
+            //IsGrounded = false; //setujem i ovde da bi kod dovoljno brzo prebacio IsGrounded na false
         }
         //Finger up
         else if (rb.linearVelocity.y > 0f){
@@ -76,12 +100,12 @@ public class PlayerMovement : MonoBehaviour
         if (IsWalled()){
             Flip();
         }
-        if (IsGrounded()){
+        if (IsGrounded){
             fallstraight = false;
         }else {
-            jumpCoyoteTimer = jumpCoyoteWindow;
+            jumpCoyoteTimer -= Time.deltaTime;
         }
-        jumpCoyoteTimer -= Time.deltaTime;
+        
     }
     private void FixedUpdate(){
         //Moves player left - right
@@ -100,16 +124,26 @@ public class PlayerMovement : MonoBehaviour
         OneWayPlatform.layer = LayerMask.NameToLayer("Platform");
     }
     
-    private bool IsGrounded(){
+    /*private bool IsGrounded(){
         return Physics2D.OverlapCircle(groundCheck.position, groundHitBoxSize, groundLayer);
-    }
+    }*/
 
     private bool IsWalled(){
         return Physics2D.OverlapCircle(wallCheck.position, wallHitBoxSize, wallLayer);
     }
+    private bool CanJump(){
+        if (jumpCounter == 0){
+            if (IsGrounded || jumpCoyoteTimer>0) return true;
+            else return false;
+        }
+        if (jumpCounter<maxJumps){
+                return true;
+        }
+        return false;
+    }
 
     private void WallSlide(){
-        if (IsWalled() && !IsGrounded()){
+        if (IsWalled() && !IsGrounded){
             isWallSliding = true;
             rb.linearVelocity = new Vector2(0, Mathf.Clamp(rb.linearVelocity.y, -wallSlidingSpeed, float.MaxValue));
             if (rb.linearVelocity.y <0){
@@ -131,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Flip(){
-        if (IsGrounded() && IsWalled()){
+        if (/*IsGrounded*/groundCheck.GetComponent<PlayerGroundCheck>().CheckGrounded() && IsWalled()){
             if(direction == 1)direction = -1;
             else direction = 1;
             Vector3 localScale = transform.localScale;

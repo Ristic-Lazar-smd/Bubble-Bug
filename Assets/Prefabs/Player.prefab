@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2218329448172085472}
+  - component: {fileID: 7129167147492571201}
+  - component: {fileID: 8734328016157808413}
   m_Layer: 0
   m_Name: Ground check
   m_TagString: Untagged
@@ -31,6 +33,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5247810500343504638}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &7129167147492571201
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620113195503697997}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.38
+--- !u!114 &8734328016157808413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620113195503697997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd3d263953ed3d40910d1aaec56943c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1246041921033376470
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,11 +124,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5247810500343504638}
+  - component: {fileID: 6650038401548068328}
   - component: {fileID: 8511355528861461722}
   - component: {fileID: 8206247840509259714}
   - component: {fileID: 3820135998266445301}
   - component: {fileID: 3480702324004497766}
-  - component: {fileID: 6650038401548068328}
   - component: {fileID: 3639022458320339448}
   m_Layer: 0
   m_Name: Player
@@ -101,6 +154,36 @@ Transform:
   - {fileID: 2218329448172085472}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6650038401548068328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2148014275232461975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b349de368e0d5ea4181db885ec03ca79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundCheck: {fileID: 2218329448172085472}
+  wallCheck: {fileID: 6842738624559191614}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  speed: 2
+  maxJumps: 1
+  jumpingPower: 7
+  wallSlidingSpeed: 0.75
+  wallJumpCoyoteWindow: 0.2
+  jumpCoyoteWindow: 0.15
+  wallJumpingPower: {x: 6, y: 7.5}
+  showHitBox: 1
+  wallHitBoxSize: 0.12
+  groundHitBoxSize: 0.14
 --- !u!114 &8511355528861461722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,35 +348,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &6650038401548068328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2148014275232461975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b349de368e0d5ea4181db885ec03ca79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundCheck: {fileID: 2218329448172085472}
-  wallCheck: {fileID: 6842738624559191614}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  speed: 2
-  jumpingPower: 7
-  wallSlidingSpeed: 0.75
-  wallJumpCoyoteWindow: 0.2
-  jumpCoyoteWindow: 0.2
-  wallJumpingPower: {x: 6, y: 7.5}
-  showHitBox: 1
-  wallHitBoxSize: 0.12
-  groundHitBoxSize: 0.14
 --- !u!114 &3639022458320339448
 MonoBehaviour:
   m_ObjectHideFlags: 0
