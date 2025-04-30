@@ -3,50 +3,37 @@ using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using System;
-using UnityEditor.Experimental.GraphView;
+[RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerFailState))]
+[RequireComponent(typeof(PlayerDrawGizmos))]
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    [SerializeField]private float speed = 1f;
-    [SerializeField]private float jumpingPower = 8f;
-    [SerializeField]private int maxJumps;
-
-    [Header("Wall Interaction")]
-    public Vector2 wallJumpingPower = new Vector2(8f, 16f);
-    public float wallSlidingSpeed = 0.5f;
-
-    [Header("Coyote Time")]
-    public float wallJumpCoyoteWindow = 0.2f;
-    public float jumpCoyoteWindow = 0.2f;
+    [SerializeField] protected BugStats stats;
 
     [Header("References")]
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private Transform wallCheck;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private LayerMask wallLayer;
+    [SerializeField] protected Transform groundCheck;
+    [SerializeField] protected Transform wallCheck;
+    [SerializeField] protected LayerMask groundLayer;
+    [SerializeField] protected LayerMask wallLayer;
+    private float wallHitBoxSize;
 
-    [Header ("Debug")]
-    [Tooltip("Enable gizmos to see hitbox")]
-    [SerializeField]bool showHitBox;
-    [SerializeField]float wallHitBoxSize;
-    [SerializeField]float groundHitBoxSize;
 
     //Helpers
-    private GameObject OneWayPlatform;
-    private float direction;
-    private bool isWallSliding;
-    private float wallJumpCoyoteTimer;
-    private float jumpCoyoteTimer;
-    private float wallJumpingDirection;
+    protected GameObject OneWayPlatform;
+    protected float direction;
+    protected bool isWallSliding;
+    protected float wallJumpCoyoteTimer;
+    protected float jumpCoyoteTimer;
+    protected float wallJumpingDirection;
 
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
     bool fallstraight = true;
 
-    
-
-
-    private int jumpCounter;
-    private bool isGrounded;
+    protected int jumpCounter;
+    protected bool isGrounded;
     public bool IsGrounded{
         get {return isGrounded;}
         set{
@@ -55,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
                 //Menjam promenljive kada preko setera promenim IsGrounded
                 if (isGrounded){
                     jumpCounter = 0;
-                    jumpCoyoteTimer = jumpCoyoteWindow;
+                    jumpCoyoteTimer = stats.jumpCoyoteWindow;
                 }
             }
         }
@@ -63,20 +50,21 @@ public class PlayerMovement : MonoBehaviour
 
     //------------------------------------------------//
 
-    private void Awake(){
+    protected void Awake(){
         rb = GetComponent<Rigidbody2D>();
+        wallHitBoxSize = GetComponent<PlayerDrawGizmos>().wallHitBoxSize;
     }
-    private void Start(){
+    protected void Start(){
         direction = 1;
         rb.transform.position = new Vector3(0,-3.5f,0);
     }
 
-    void OnTouch(InputValue value){
+    protected virtual void OnTouch(InputValue value){
 
         //Player Jump, on finger down apply up velocity, if finger up before peak of jump, apply down velocity
         //Finger down
         if (value.isPressed && CanJump()){
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpingPower);
             jumpCounter++;
             Debug.Log(jumpCoyoteTimer);
             //IsGrounded = false; //setujem i ovde da bi kod dovoljno brzo prebacio IsGrounded na false
@@ -89,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         //Wall Jump Handler start 
         if (value.isPressed && wallJumpCoyoteTimer > 0f){
             fallstraight = false;
-            rb.linearVelocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            rb.linearVelocity = new Vector2(wallJumpingDirection * stats.wallJumpingPower.x, stats.wallJumpingPower.y);
             wallJumpCoyoteTimer = 0f;
 
             if (transform.localScale.x != wallJumpingDirection){
@@ -103,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
         //Wall Jump Handler end 
     }
 
-    private void Update(){
+    protected void Update(){
         WallSlide();
         WallJump();
 
@@ -117,10 +105,10 @@ public class PlayerMovement : MonoBehaviour
         }
         
     }
-    private void FixedUpdate(){
+    protected void FixedUpdate(){
         //Moves player left - right
         if (!fallstraight && !isWallSliding){
-           rb.linearVelocity = new Vector2(direction * speed, rb.linearVelocity.y);
+           rb.linearVelocity = new Vector2(direction * stats.speed, rb.linearVelocity.y);
         }
         //OneWayPlatform handler **NAPOMENTA** promeni poziciju iz koje pucas ray ako promenis debljinu platforme
         RaycastHit2D hit = Physics2D.Raycast((groundCheck.position + new Vector3(0f,-0.3f)), Vector2.down,1f,LayerMask.GetMask("OneWayPlatform"));
@@ -133,29 +121,29 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         OneWayPlatform.layer = LayerMask.NameToLayer("Platform");
     }
-    
+
     /*private bool IsGrounded(){
         return Physics2D.OverlapCircle(groundCheck.position, groundHitBoxSize, groundLayer);
     }*/
 
-    private bool IsWalled(){
+    protected virtual bool IsWalled(){
         return Physics2D.OverlapCircle(wallCheck.position, wallHitBoxSize, wallLayer);
     }
-    private bool CanJump(){
+    protected virtual bool CanJump(){
         if (jumpCounter == 0){
             if (IsGrounded || jumpCoyoteTimer>0) return true;
             else return false;
         }
-        if (jumpCounter<maxJumps){
+        if (jumpCounter< stats.maxJumps){
                 return true;
         }
         return false;
     }
 
-    private void WallSlide(){
+    protected virtual void WallSlide(){
         if (IsWalled() && !IsGrounded){
             isWallSliding = true;
-            rb.linearVelocity = new Vector2(0, Mathf.Clamp(rb.linearVelocity.y, -wallSlidingSpeed, float.MaxValue));
+            rb.linearVelocity = new Vector2(0, Mathf.Clamp(rb.linearVelocity.y, -stats.wallSlidingSpeed, float.MaxValue));
             if (rb.linearVelocity.y <0){
             fallstraight = true;}
         }
@@ -164,33 +152,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void WallJump(){
+    protected virtual void WallJump(){
         if (isWallSliding){
             wallJumpingDirection = -transform.localScale.x;
-            wallJumpCoyoteTimer = wallJumpCoyoteWindow;
+            wallJumpCoyoteTimer = stats.wallJumpCoyoteWindow;
         }
         else{
             wallJumpCoyoteTimer -= Time.deltaTime;
         }
     }
 
-    private void Flip(){
+    protected virtual void Flip(){
         if (/*IsGrounded*/groundCheck.GetComponent<PlayerGroundCheck>().CheckGrounded() && IsWalled()){
             if(direction == 1)direction = -1;
             else direction = 1;
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
-        }
-    }
-
-    //For debug
-    void OnDrawGizmos(){
-        if (showHitBox){
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(wallCheck.position, wallHitBoxSize);
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(groundCheck.position, groundHitBoxSize);
         }
     }
 }

@@ -124,12 +124,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5247810500343504638}
-  - component: {fileID: 6650038401548068328}
   - component: {fileID: 8511355528861461722}
   - component: {fileID: 8206247840509259714}
   - component: {fileID: 3820135998266445301}
   - component: {fileID: 3480702324004497766}
   - component: {fileID: 3639022458320339448}
+  - component: {fileID: 7605710240941454115}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -154,36 +154,6 @@ Transform:
   - {fileID: 2218329448172085472}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6650038401548068328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2148014275232461975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b349de368e0d5ea4181db885ec03ca79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundCheck: {fileID: 2218329448172085472}
-  wallCheck: {fileID: 6842738624559191614}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  speed: 2
-  maxJumps: 1
-  jumpingPower: 7
-  wallSlidingSpeed: 0.75
-  wallJumpCoyoteWindow: 0.2
-  jumpCoyoteWindow: 0.15
-  wallJumpingPower: {x: 6, y: 7.5}
-  showHitBox: 1
-  wallHitBoxSize: 0.12
-  groundHitBoxSize: 0.14
 --- !u!114 &8511355528861461722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,3 +330,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 786e5ce4c6e01be45acc466301a1cbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7605710240941454115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2148014275232461975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4182993acf7a874c8e9fbec57bcd4c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showHitBox: 1
+  wallHitBoxSize: 0.12
+  groundHitBoxSize: 0.14
+  groundCheck: {fileID: 2218329448172085472}
+  wallCheck: {fileID: 6842738624559191614}
