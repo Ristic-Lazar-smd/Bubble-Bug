@@ -4,7 +4,10 @@ public class HalfWayTrigger : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D col){
         if (col.CompareTag("Player")){
-            LevelManager.Instance.SpawnRandom(transform.position);
+            //old
+            //LevelManager.Instance.SpawnRandom(transform.position);
+            //new
+            LevelManager.Instance.SpawnRoom();
             gameObject.SetActive(false);
         }
        
