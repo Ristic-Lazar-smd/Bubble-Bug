@@ -44,12 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13e95a2c527b0f4a9e5dfd261073496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnOffset: 20
-  lvls: []
-  levels:
+  allLevels:
   - {fileID: 11400000, guid: 4cff5c5a790146643b7cf39ff73f22f1, type: 2}
   - {fileID: 11400000, guid: aaac290a14635b24eace189d30e12ee3, type: 2}
   - {fileID: 11400000, guid: 6f972b41336d38c4e9725fdcdac0ff05, type: 2}
   - {fileID: 11400000, guid: 2a28d7fd885441d4fa25196b2f8c7362, type: 2}
   - {fileID: 11400000, guid: 16ca6e2db6e41f844b4db98b7aade101, type: 2}
   - {fileID: 11400000, guid: 8216889bfb2e1024088d8d09da904d10, type: 2}
+  spawnOffset: 20
