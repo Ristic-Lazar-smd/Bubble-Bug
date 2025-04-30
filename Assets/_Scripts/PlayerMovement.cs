@@ -6,33 +6,43 @@ using System;
 using UnityEditor.Experimental.GraphView;
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement Settings")]
+    [SerializeField]private float speed = 1f;
+    [SerializeField]private float jumpingPower = 8f;
+    [SerializeField]private int maxJumps;
+
+    [Header("Wall Interaction")]
+    public Vector2 wallJumpingPower = new Vector2(8f, 16f);
+    public float wallSlidingSpeed = 0.5f;
+
+    [Header("Coyote Time")]
+    public float wallJumpCoyoteWindow = 0.2f;
+    public float jumpCoyoteWindow = 0.2f;
+
+    [Header("References")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+
+    [Header ("Debug")]
+    [Tooltip("Enable gizmos to see hitbox")]
+    [SerializeField]bool showHitBox;
+    [SerializeField]float wallHitBoxSize;
+    [SerializeField]float groundHitBoxSize;
+
+    //Helpers
     private GameObject OneWayPlatform;
     private float direction;
     private bool isWallSliding;
-    private float wallJumpingDirection;
     private float wallJumpCoyoteTimer;
     private float jumpCoyoteTimer;
-    public float speed = 1f;
-    [SerializeField]private int maxJumps;
-    public float jumpingPower = 8f;
-    public float wallSlidingSpeed = 0.5f;
-    public float wallJumpCoyoteWindow = 0.2f;
-    public float jumpCoyoteWindow = 0.2f;
-    public Vector2 wallJumpingPower = new Vector2(8f, 16f);
+    private float wallJumpingDirection;
 
     private Rigidbody2D rb;
     bool fallstraight = true;
 
     
-    [Header ("HitBox")]
-    [Tooltip("Enable gizmos to see hitbox")]
-    [SerializeField]bool showHitBox;
-    [SerializeField]float wallHitBoxSize;
-    [SerializeField]float groundHitBoxSize;
 
 
     private int jumpCounter;
