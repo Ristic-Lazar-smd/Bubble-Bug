@@ -66,8 +66,6 @@ public class PlayerMovement : MonoBehaviour
         if (value.isPressed && CanJump()){
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpingPower);
             jumpCounter++;
-            Debug.Log(jumpCoyoteTimer);
-            //IsGrounded = false; //setujem i ovde da bi kod dovoljno brzo prebacio IsGrounded na false
         }
         //Finger up
         else if (rb.linearVelocity.y > 0f){
@@ -122,10 +120,6 @@ public class PlayerMovement : MonoBehaviour
         OneWayPlatform.layer = LayerMask.NameToLayer("Platform");
     }
 
-    /*private bool IsGrounded(){
-        return Physics2D.OverlapCircle(groundCheck.position, groundHitBoxSize, groundLayer);
-    }*/
-
     protected virtual bool IsWalled(){
         return Physics2D.OverlapCircle(wallCheck.position, wallHitBoxSize, wallLayer);
     }
@@ -163,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     protected virtual void Flip(){
-        if (/*IsGrounded*/groundCheck.GetComponent<PlayerGroundCheck>().CheckGrounded() && IsWalled()){
+        if (groundCheck.GetComponent<PlayerGroundCheck>().CheckGrounded() && IsWalled()){
             if(direction == 1)direction = -1;
             else direction = 1;
             Vector3 localScale = transform.localScale;

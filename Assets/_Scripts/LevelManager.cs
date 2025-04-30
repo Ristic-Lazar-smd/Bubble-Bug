@@ -31,7 +31,6 @@ public class LevelManager : MonoBehaviour
         //SpawnRoom(spawnPoint);
     }
     public void SpawnRoom(){
-        Debug.Log("SPAWN POINT JE: "+spawnPoint);
         GameObject newRoom = Instantiate(GenerateNextRoom().LevelPrefab, spawnPoint, Quaternion.identity);
         spawnPoint = new Vector3(0,newRoom.GetComponent<HighestPointFinder>().GetHighestPoint());
     }
@@ -59,7 +58,7 @@ public class LevelManager : MonoBehaviour
 
         // Failsafe if no rooms with current filters
         if (biomeRooms.Count == 0){
-            Debug.LogWarning("No rooms available with current filters!");
+            Debug.LogWarning("No rooms available with current filters! Random room spawned.");
             biomeRooms = allLevels.Where(r => r.Biom == currentBiome).ToList();
         }
         // Select random room from filtered list

@@ -70,10 +70,4 @@ public class HighestPointFinder : MonoBehaviour
         spawnedHalfWay.transform.localPosition = new Vector3(0,GetHighestPoint()/2);
         CalculateWorldSpaceHighestPoint();
     }
-    //Spawn halfWay triger during runtime
-    void Start()
-    {
-
-    }
-
 }

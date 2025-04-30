@@ -15,4 +15,4 @@ MonoBehaviour:
   Stage: 1
   Biom: 0
   Gameplay: 0
-  LevelPrefab: {fileID: 4486150818545523774, guid: 18f47eadf0114d544aa34ec42622f4db, type: 3}
+  LevelPrefab: {fileID: 4486150818545523774, guid: f4f90e63a6dab59448044acf3a2823ff, type: 3}
