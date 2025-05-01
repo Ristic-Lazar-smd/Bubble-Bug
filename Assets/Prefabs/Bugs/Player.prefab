@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2218329448172085472}
   - component: {fileID: 7129167147492571201}
   - component: {fileID: 8734328016157808413}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6842738624559191614}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wall check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,13 +124,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5247810500343504638}
+  - component: {fileID: 1186980792004186504}
   - component: {fileID: 8511355528861461722}
   - component: {fileID: 8206247840509259714}
   - component: {fileID: 3820135998266445301}
   - component: {fileID: 3480702324004497766}
   - component: {fileID: 3639022458320339448}
   - component: {fileID: 7605710240941454115}
-  m_Layer: 0
+  - component: {fileID: 5645583566163826857}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -154,6 +156,27 @@ Transform:
   - {fileID: 2218329448172085472}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1186980792004186504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2148014275232461975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b349de368e0d5ea4181db885ec03ca79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 93bc9fd7ba16fb44db2308f1fed82b02, type: 2}
+  groundCheck: {fileID: 2218329448172085472}
+  wallCheck: {fileID: 6842738624559191614}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &8511355528861461722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,8 +365,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4182993acf7a874c8e9fbec57bcd4c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showHitBox: 1
+  showHitBox: 0
   wallHitBoxSize: 0.12
   groundHitBoxSize: 0.14
   groundCheck: {fileID: 2218329448172085472}
   wallCheck: {fileID: 6842738624559191614}
+--- !u!114 &5645583566163826857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2148014275232461975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb9ade6b476ea048a54edbfb71474f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rays:
+  - angle: -29
+    length: 0.19
+    debugColor: {r: 0, g: 0.031737804, b: 1, a: 1}
+  - angle: -45
+    length: 0.21
+    debugColor: {r: 0.5568781, g: 0, b: 1, a: 1}
+  - angle: -64
+    length: 0.21
+    debugColor: {r: 0, g: 1, b: 0.114498615, a: 1}
+  - angle: -90
+    length: 0.21
+    debugColor: {r: 1, g: 0.91517925, b: 0, a: 1}
+  - angle: -116
+    length: 0.21
+    debugColor: {r: 1, g: 0, b: 0, a: 1}
+  - angle: -135
+    length: 0.21
+    debugColor: {r: 1, g: 0.49678072, b: 0.15686274, a: 1}
+  - angle: -151
+    length: 0.19
+    debugColor: {r: 0, g: 0.70980394, b: 0.57469606, a: 1}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 247
+  castKey: 114
+  drawInEditor: 1
+  _hasHit: 0

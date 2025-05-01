@@ -101,6 +101,10 @@ public class PlayerMovement : MonoBehaviour
         }else {
             jumpCoyoteTimer -= Time.deltaTime;
         }
+
+        if (Input.GetKeyDown(KeyCode.R)){
+           Debug.Log(GetComponent<AdvancedRaycaster>().GroundCheck());
+        }
         
     }
     protected void FixedUpdate(){
