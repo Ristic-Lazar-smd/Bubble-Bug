@@ -39,10 +39,8 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926831200445738440}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86b58108b0b5dab43947ae7cc14a45a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swipeAction: {fileID: -4850446838865082300, guid: d11ce3d737716b549a5a250b553154d3, type: 3}
-  minSwipeDistance: 50

@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] protected LayerMask groundLayer;
     [SerializeField] protected LayerMask wallLayer;
     private float wallHitBoxSize;
+    private InputManager inputManager;
+    private Camera cameraMain;
 
 
     //Helpers
@@ -53,33 +55,53 @@ public class PlayerMovement : MonoBehaviour
     protected void Awake(){
         rb = GetComponent<Rigidbody2D>();
         wallHitBoxSize = GetComponent<PlayerDrawGizmos>().wallHitBoxSize;
+        inputManager = InputManager.Instance;
+        cameraMain = Camera.main;
     }
+
+    private void OnEnable()
+    {
+        inputManager.OnStartTouch += OnTouchStart;
+        inputManager.OnEndTouch += OnTouchEnd;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.OnStartTouch -= OnTouchStart;
+        inputManager.OnEndTouch += OnTouchEnd;
+    }
+
     protected void Start(){
         direction = 1;
         rb.transform.position = new Vector3(0,-3.5f,0);
     }
 
-    protected virtual void OnTouch(InputValue value){
+    protected virtual void OnTouchStart(Vector2 screenPosition, float time)
+    {
+        // Ovo ti treba da bi lepo citao world koordinate je l
+        Vector3 screenCoordinates = new Vector3(screenPosition.x, screenPosition.y, cameraMain.nearClipPlane);
+        Vector3 worldCoordinates = cameraMain.ScreenToWorldPoint(screenCoordinates);
+        worldCoordinates.z = 0;
 
         //Player Jump, on finger down apply up velocity, if finger up before peak of jump, apply down velocity
         //Finger down
-        if (value.isPressed && CanJump()){
+        if (CanJump())
+        {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpingPower);
             jumpCounter++;
         }
-        //Finger up
-        else if (rb.linearVelocity.y > 0f){
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
-        }
+        
 
         //Wall Jump Handler start 
-        if (value.isPressed && wallJumpCoyoteTimer > 0f){
+        if (wallJumpCoyoteTimer > 0f)
+        {
             fallstraight = false;
             rb.linearVelocity = new Vector2(wallJumpingDirection * stats.wallJumpingPower.x, stats.wallJumpingPower.y);
             wallJumpCoyoteTimer = 0f;
 
-            if (transform.localScale.x != wallJumpingDirection){
-                if(direction == 1)direction = -1;
+            if (transform.localScale.x != wallJumpingDirection)
+            {
+                if (direction == 1) direction = -1;
                 else direction = 1;
                 Vector3 localScale = transform.localScale;
                 localScale.x *= -1f;
@@ -87,6 +109,20 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         //Wall Jump Handler end 
+    }
+
+    protected virtual void OnTouchEnd(Vector2 screenPosition, float time)
+    {
+        // Ovo ti treba da bi lepo citao world koordinate je l
+        Vector3 screenCoordinates = new Vector3(screenPosition.x, screenPosition.y, cameraMain.nearClipPlane);
+        Vector3 worldCoordinates = cameraMain.ScreenToWorldPoint(screenCoordinates);
+        worldCoordinates.z = 0;
+
+        //Finger up
+        if (rb.linearVelocity.y > 0f)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+        }
     }
 
     protected void Update(){

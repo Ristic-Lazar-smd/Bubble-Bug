@@ -1,74 +1,57 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[DefaultExecutionOrder(-1)]
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private InputActionReference swipeAction;
-    private Vector2 startPosition;
-    private Vector2 endPosition;
-    [SerializeField] private float minSwipeDistance = 50f;
+    public static InputManager Instance;
+
+    private PlayerInput playerInput;
+
+    public delegate void StartTouchEvent(Vector2 position, float time);
+    public event StartTouchEvent OnStartTouch;
+    public delegate void EndTouchEvent(Vector2 position, float time);
+    public event EndTouchEvent OnEndTouch;
+
+    private void Awake()
+    {
+        Instance = this;
+        playerInput = new PlayerInput();
+    }
 
     private void OnEnable()
     {
-        swipeAction.action.Enable();
-        swipeAction.action.performed += OnSwipePerformed;
+        playerInput.Enable();
     }
 
     private void OnDisable()
     {
-        swipeAction.action.performed -= OnSwipePerformed;
-        swipeAction.action.Disable();
+        playerInput.Disable();
     }
 
-    private void OnSwipePerformed(InputAction.CallbackContext context)
+    private void Start()
     {
-        if (context.phase == InputActionPhase.Performed)
+        playerInput.Touch.Touch.started += ctx => StartTouch(ctx);
+        playerInput.Touch.Touch.canceled += ctx => EndTouch(ctx);
+    }
+
+    private void StartTouch(InputAction.CallbackContext context)
+    {
+        Debug.Log("Touch Started" + playerInput.Touch.TouchPosition.ReadValue<Vector2>());
+
+        if (OnStartTouch != null)
         {
-            Vector2 currentPosition = Touchscreen.current.primaryTouch.position.ReadValue();
-            
-            if (Touchscreen.current.primaryTouch.phase.ReadValue() == UnityEngine.InputSystem.TouchPhase.Began)
-            {
-                startPosition = currentPosition;
-            }
-            else if (Touchscreen.current.primaryTouch.phase.ReadValue() == UnityEngine.InputSystem.TouchPhase.Ended)
-            {
-                endPosition = currentPosition;
-                DetectSwipe();
-            }
+            OnStartTouch(playerInput.Touch.TouchPosition.ReadValue<Vector2>(), (float)context.startTime);
         }
     }
 
-    private void DetectSwipe()
+    private void EndTouch(InputAction.CallbackContext context)
     {
-        Vector2 swipeDelta = endPosition - startPosition;
-        
-        if (swipeDelta.magnitude >= minSwipeDistance)
+        Debug.Log("Touch Ended" + playerInput.Touch.TouchPosition.ReadValue<Vector2>());
+
+        if (OnEndTouch != null)
         {
-            if (Mathf.Abs(swipeDelta.x) > Mathf.Abs(swipeDelta.y))
-            {
-                // Horizontal swipe
-                if (swipeDelta.x > 0)
-                {
-                    Debug.Log("Right Swipe");
-                }
-                else
-                {
-                    Debug.Log("Left Swipe");
-                }
-            }
-            else
-            {
-                // Vertical swipe
-                if (swipeDelta.y > 0)
-                {
-                    Debug.Log("Up Swipe");
-                }
-                else
-                {
-                    Debug.Log("Down Swipe");
-                }
-            }
+            OnEndTouch(playerInput.Touch.TouchPosition.ReadValue<Vector2>(), (float)context.time);
         }
     }
 }
