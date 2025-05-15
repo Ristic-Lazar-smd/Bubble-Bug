@@ -6,14 +6,22 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get; private set; }
 
     [SerializeField]private LevelInfo[] allLevels;
-    [SerializeField]private float spawnOffset;
     private int currentBiomeRoomsLeft = 0;
     private LevelInfo.BiomType currentBiome;
-    private int currentStage = 1;
+    private int currentDifficulty = 1;
     private int levelCounter = 0;
     Vector3 spawnPoint;
     Vector3 firstSpawnPoint;
     Vector3 nextSpawnPoint;
+
+    [Header("Settings")]
+
+    [Tooltip("Number of rooms the player needs to pass for the difficulty to change")]
+    public int changeDifficultyEvery;
+    [Tooltip("Minimum number of rooms to spawn per biom.")]
+    [SerializeField] int lowEnd;
+    [Tooltip("Maximum number of rooms to spawn per biom, Max spawns higEnd - 1 rooms")]
+    [SerializeField] int highEnd;
 
 
     void Awake()
@@ -45,16 +53,16 @@ public class LevelManager : MonoBehaviour
         if (currentBiomeRoomsLeft <= 0){
             SelectNewBiome();
         }
-        // Update stage every 10 levels
+        // Change difficulty every X levels
         levelCounter++;
-        if (levelCounter % 10 == 0){
-            currentStage++;
-            Debug.Log($"Stage increased to {currentStage}");
+        if (levelCounter % changeDifficultyEvery == 0){
+            currentDifficulty++;
+            Debug.Log($"Difficulty increased to {currentDifficulty}");
         }
-        // Filter rooms by current biome and stage
+        // Filter rooms by current biome and difficulty
         var biomeRooms = allLevels.Where(r => 
             r.Biom == currentBiome && 
-            r.Stage == currentStage).ToList();
+            r.Difficulty == currentDifficulty).ToList();
 
         // Failsafe if no rooms with current filters
         if (biomeRooms.Count == 0){
@@ -67,7 +75,7 @@ public class LevelManager : MonoBehaviour
         
         Debug.Log($"Spawning {selectedRoom.LevelPrefab.name} " +
                  $"(Biome: {currentBiome}, " +
-                 $"Difficulty: {currentStage}");
+                 $"Difficulty: {currentDifficulty}");
         
         return selectedRoom;
     }
@@ -81,7 +89,7 @@ public class LevelManager : MonoBehaviour
             candidateBiomes = allBiomes;
         }
         currentBiome = candidateBiomes[Random.Range(0, candidateBiomes.Count)];
-        currentBiomeRoomsLeft = Random.Range(3, 6); // 3-5 rooms
+        currentBiomeRoomsLeft = Random.Range(lowEnd, highEnd); // lowEnd to highEnd-1 rooms
         
         Debug.Log($"Switching to {currentBiome} biome for {currentBiomeRoomsLeft} rooms");
     }

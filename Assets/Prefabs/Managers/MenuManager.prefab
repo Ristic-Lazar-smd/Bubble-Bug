@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e816ab4a1e81e0f4e99cc210f0567127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentMenu: {fileID: 0}
-  bgCanvas: {fileID: 0}
+  menusToRegister:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

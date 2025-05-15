@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New LevelInfo", menuName = "Game Data/Level Info")]
 public class LevelInfo : ScriptableObject
 {
-    public int Stage;
+    public int Difficulty;
     
     public enum BiomType
     {
