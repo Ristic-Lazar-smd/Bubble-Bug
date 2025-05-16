@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 620113195503697997}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.263, z: 0}
+  m_LocalPosition: {x: 0, y: -0.218, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620113195503697997}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fd3d263953ed3d40910d1aaec56943c, type: 3}
   m_Name: 
@@ -109,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 1246041921033376470}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.218, y: 0.01, z: 0}
+  m_LocalPosition: {x: 0.218, y: -0.0345, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -313,12 +313,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2148014275232461975}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4182993acf7a874c8e9fbec57bcd4c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showHitBox: 0
+  showHitBox: 1
   wallHitBoxSize: 0.12
   groundHitBoxSize: 0.14
   groundCheck: {fileID: 2218329448172085472}
@@ -336,30 +336,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rays:
-  - angle: -29
-    length: 0.19
+  - angle: -43.19343
+    length: 0.18
     debugColor: {r: 0, g: 0.031737804, b: 1, a: 1}
-  - angle: -45
-    length: 0.21
+  - angle: -55
+    length: 0.19
     debugColor: {r: 0.5568781, g: 0, b: 1, a: 1}
-  - angle: -64
-    length: 0.21
+  - angle: -71
+    length: 0.2
     debugColor: {r: 0, g: 1, b: 0.114498615, a: 1}
   - angle: -90
-    length: 0.21
+    length: 0.2
     debugColor: {r: 1, g: 0.91517925, b: 0, a: 1}
-  - angle: -116
-    length: 0.21
+  - angle: -109
+    length: 0.2
     debugColor: {r: 1, g: 0, b: 0, a: 1}
-  - angle: -135
-    length: 0.21
-    debugColor: {r: 1, g: 0.49678072, b: 0.15686274, a: 1}
-  - angle: -151
+  - angle: -125
     length: 0.19
+    debugColor: {r: 1, g: 0.49678072, b: 0.15686274, a: 1}
+  - angle: -136.807
+    length: 0.18
     debugColor: {r: 0, g: 0.70980394, b: 0.57469606, a: 1}
   layerMask:
     serializedVersion: 2
     m_Bits: 247
-  castKey: 114
   drawInEditor: 1
   _hasHit: 0

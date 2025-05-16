@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     protected float wallJumpCoyoteTimer;
     protected float jumpCoyoteTimer;
     protected float wallJumpingDirection;
+    protected Vector3 localScale;
 
     protected Rigidbody2D rb;
     bool fallstraight = true;
@@ -45,11 +46,13 @@ public class PlayerMovement : MonoBehaviour
                 if (isGrounded){
                     jumpCounter = 0;
                     jumpCoyoteTimer = stats.jumpCoyoteWindow;
+                    fallstraight = false;
                 }
             }
         }
     }
 
+    Vector2 point;
     //------------------------------------------------//
 
     protected void Awake(){
@@ -59,14 +62,12 @@ public class PlayerMovement : MonoBehaviour
         cameraMain = Camera.main;
     }
 
-    private void OnEnable()
-    {
+    private void OnEnable(){
         inputManager.OnStartTouch += OnTouchStart;
         inputManager.OnEndTouch += OnTouchEnd;
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable(){
         inputManager.OnStartTouch -= OnTouchStart;
         inputManager.OnEndTouch += OnTouchEnd;
     }
@@ -76,8 +77,7 @@ public class PlayerMovement : MonoBehaviour
         rb.transform.position = new Vector3(0,-3.5f,0);
     }
 
-    protected virtual void OnTouchStart(Vector2 screenPosition, float time)
-    {
+    protected virtual void OnTouchStart(Vector2 screenPosition, float time){
         // Ovo ti treba da bi lepo citao world koordinate je l
         Vector3 screenCoordinates = new Vector3(screenPosition.x, screenPosition.y, cameraMain.nearClipPlane);
         Vector3 worldCoordinates = cameraMain.ScreenToWorldPoint(screenCoordinates);
@@ -85,27 +85,19 @@ public class PlayerMovement : MonoBehaviour
 
         //Player Jump, on finger down apply up velocity, if finger up before peak of jump, apply down velocity
         //Finger down
-        if (CanJump())
-        {
+        if (CanJump()){
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpingPower);
             jumpCounter++;
         }
         
-
         //Wall Jump Handler start 
-        if (wallJumpCoyoteTimer > 0f)
-        {
+        if (wallJumpCoyoteTimer > 0f){
             fallstraight = false;
             rb.linearVelocity = new Vector2(wallJumpingDirection * stats.wallJumpingPower.x, stats.wallJumpingPower.y);
             wallJumpCoyoteTimer = 0f;
 
-            if (transform.localScale.x != wallJumpingDirection)
-            {
-                if (direction == 1) direction = -1;
-                else direction = 1;
-                Vector3 localScale = transform.localScale;
-                localScale.x *= -1f;
-                transform.localScale = localScale;
+            if (transform.localScale.x != wallJumpingDirection){
+                Flip();
             }
         }
         //Wall Jump Handler end 
@@ -125,32 +117,31 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    protected void Update(){
+    protected void Update()
+    {
         WallSlide();
         WallJump();
-
-        if (IsWalled()){
-            Flip();
+        if (!IsGrounded)jumpCoyoteTimer -= Time.deltaTime;
+        //if walled shoot ray straight down, if hit flip
+        if (IsWalled())
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, GetComponent<RaycastGroungCheck>().layerMask);
+            if (hit.collider)
+            {
+                Flip();
+                Debug.DrawRay(transform.position, Vector2.down * 0.2f, Color.red, 2);
+            }
+            
         }
-        if (IsGrounded){
-            fallstraight = false;
-        }else {
-            jumpCoyoteTimer -= Time.deltaTime;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R)){
-           Debug.Log(GetComponent<AdvancedRaycaster>().GroundCheck());
-        }
-        
     }
-    protected void FixedUpdate(){
+    protected void FixedUpdate() {
         //Moves player left - right
-        if (!fallstraight && !isWallSliding){
-           rb.linearVelocity = new Vector2(direction * stats.speed, rb.linearVelocity.y);
+        if (!fallstraight && !isWallSliding) {
+            rb.linearVelocity = new Vector2(direction * stats.speed, rb.linearVelocity.y);
         }
         //OneWayPlatform handler **NAPOMENTA** promeni poziciju iz koje pucas ray ako promenis debljinu platforme
-        RaycastHit2D hit = Physics2D.Raycast((groundCheck.position + new Vector3(0f,-0.3f)), Vector2.down,1f,LayerMask.GetMask("OneWayPlatform"));
-        if (hit){
+        RaycastHit2D hit = Physics2D.Raycast((groundCheck.position + new Vector3(0f, -0.3f)), Vector2.down, 1f, LayerMask.GetMask("OneWayPlatform"));
+        if (hit) {
             OneWayPlatform = hit.collider.gameObject;
             StartCoroutine(ChangePlatform());
         }
@@ -178,11 +169,10 @@ public class PlayerMovement : MonoBehaviour
         if (IsWalled() && !IsGrounded){
             isWallSliding = true;
             rb.linearVelocity = new Vector2(0, Mathf.Clamp(rb.linearVelocity.y, -stats.wallSlidingSpeed, float.MaxValue));
-            if (rb.linearVelocity.y <0){
-            fallstraight = true;}
+            if (rb.linearVelocity.y <0)fallstraight = true;
         }
         else{
-            isWallSliding = false;
+           isWallSliding = false;
         }
     }
 
@@ -197,12 +187,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     protected virtual void Flip(){
-        if (groundCheck.GetComponent<PlayerGroundCheck>().CheckGrounded() && IsWalled()){
-            if(direction == 1)direction = -1;
+            if (direction == 1) direction = -1;
             else direction = 1;
-            Vector3 localScale = transform.localScale;
+            localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
-        }
     }
 }
