@@ -75,12 +75,8 @@ public class PlayerMovement : MonoBehaviour
         rb.transform.position = new Vector3(0, -3.5f, 0);
     }
 
-    protected virtual void OnTouchStart(Vector2 screenPosition, float time) {
-        // Ovo ti treba da bi lepo citao world koordinate je l
-        Vector3 screenCoordinates = new Vector3(screenPosition.x, screenPosition.y, cameraMain.nearClipPlane);
-        Vector3 worldCoordinates = cameraMain.ScreenToWorldPoint(screenCoordinates);
-        worldCoordinates.z = 0;
-
+    protected virtual void OnTouchStart(Vector2 worldPosition, float time)
+    {
         //Player Jump, on finger down apply up velocity, if finger up before peak of jump, apply down velocity
         if (CanJump()) {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpingPower);
@@ -98,12 +94,8 @@ public class PlayerMovement : MonoBehaviour
         //Wall Jump Handler end
     }
 
-    protected virtual void OnTouchEnd(Vector2 screenPosition, float time) {
-        // Ovo ti treba da bi lepo citao world koordinate je l
-        Vector3 screenCoordinates = new Vector3(screenPosition.x, screenPosition.y, cameraMain.nearClipPlane);
-        Vector3 worldCoordinates = cameraMain.ScreenToWorldPoint(screenCoordinates);
-        worldCoordinates.z = 0;
-
+    protected virtual void OnTouchEnd(Vector2 worldPosition, float time)
+    {
         if (rb.linearVelocity.y > 0f) {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f); 
         }

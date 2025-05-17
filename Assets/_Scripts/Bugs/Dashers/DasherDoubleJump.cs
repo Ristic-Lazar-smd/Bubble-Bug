@@ -2,18 +2,10 @@ using UnityEngine;
 
 public class DasherDoubleJump : PlayerMovement
 {
-
-    float screenWidth;
-    float midPointX;
-    protected override void Start(){
-        screenWidth = Screen.width;
-        midPointX = screenWidth / 2;
-        base.Start();
-    }
-    protected override void OnTouchStart(Vector2 screenPosition, float time) {
+    protected override void OnTouchStart(Vector2 worldPosition, float time) {
         if (CanJump()){
             if (!IsWalled()) {
-                if (screenPosition.x > midPointX) {
+                if (worldPosition.x > 0f) {
                     //Jump right
                     if (direction != 1) Flip();
                 } else {
@@ -22,6 +14,6 @@ public class DasherDoubleJump : PlayerMovement
                 }
             }
         }
-    base.OnTouchStart(screenPosition, time);
+    base.OnTouchStart(worldPosition, time);
     }
 }

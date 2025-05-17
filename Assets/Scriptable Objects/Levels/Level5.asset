@@ -15,4 +15,4 @@ MonoBehaviour:
   Difficulty: 1
   Biom: 0
   Gameplay: 0
-  LevelPrefab: {fileID: 6417507010845397536, guid: cad914db1814a554495e1836ce9c0597, type: 3}
+  LevelPrefab: {fileID: 6417507010845397536, guid: f4f90e63a6dab59448044acf3a2823ff, type: 3}

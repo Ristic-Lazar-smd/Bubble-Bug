@@ -14,11 +14,13 @@ public class InputManager : MonoBehaviour
     public event EndTouchEvent OnEndTouch;
     [Tooltip("Debug loguje pozociju i vreme touch start i touch end")]
     [SerializeField] bool debug;
+    private Camera mainCamera;
 
     private void Awake()
     {
         Instance = this;
         playerInput = new PlayerInput();
+        mainCamera = Camera.main;
     }
 
     private void OnEnable()
@@ -40,21 +42,26 @@ public class InputManager : MonoBehaviour
     private void StartTouch(InputAction.CallbackContext context)
     {
 
-        if (debug) { Debug.Log("Touch Started" + playerInput.Touch.TouchPosition.ReadValue<Vector2>()); }
+        if (debug) { Debug.Log("Touch Started" + (Utils.ScreenToWorld(mainCamera, playerInput.Touch.TouchPosition.ReadValue<Vector2>()))); }
 
         if (OnStartTouch != null)
         {
-            OnStartTouch(playerInput.Touch.TouchPosition.ReadValue<Vector2>(), (float)context.startTime);
+            OnStartTouch(Utils.ScreenToWorld(mainCamera, playerInput.Touch.TouchPosition.ReadValue<Vector2>()), (float)context.startTime);
         }
     }
 
     private void EndTouch(InputAction.CallbackContext context)
     {
-        if (debug) { Debug.Log("Touch Ended" + playerInput.Touch.TouchPosition.ReadValue<Vector2>()); }
+        if (debug) { Debug.Log("Touch Ended" + (Utils.ScreenToWorld(mainCamera, playerInput.Touch.TouchPosition.ReadValue<Vector2>()))); }
 
         if (OnEndTouch != null)
         {
-            OnEndTouch(playerInput.Touch.TouchPosition.ReadValue<Vector2>(), (float)context.time);
+            OnEndTouch(Utils.ScreenToWorld(mainCamera, playerInput.Touch.TouchPosition.ReadValue<Vector2>()), (float)context.time);
         }
     }
+
+    public Vector2 PrimaryPosition() {
+        return Utils.ScreenToWorld(mainCamera, playerInput.Touch.TouchPosition.ReadValue<Vector2>());
+    }
+
 }
