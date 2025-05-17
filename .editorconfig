@@ -1,0 +1,30 @@
+root = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+tab_width = 4
+insert_final_newline = true
+
+# Prevent auto-formatting on ;, Enter, Save, and Paste
+dotnet_separate_import_directive_groups = false
+csharp_new_line_before_open_brace = none
+csharp_new_line_before_members_in_object_initializers = false
+csharp_new_line_before_members_in_anonymous_types = false
+csharp_new_line_between_query_expression_clauses = false
+csharp_indent_case_contents = false
+csharp_indent_switch_labels = false
+csharp_indent_labels = flush_left
+
+# Keep everything on a single line where possible (K&R style)
+csharp_preserve_single_line_statements = true
+csharp_preserve_single_line_blocks = true
+
+# VS Code specific (prevents auto-detection of indentation)
+indent_size = 4
+tab_width = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{cs,csx}]
+charset = utf-8

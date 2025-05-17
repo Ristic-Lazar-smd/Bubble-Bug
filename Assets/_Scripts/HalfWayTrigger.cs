@@ -7,8 +7,8 @@ public class HalfWayTrigger : MonoBehaviour
             //old
             //LevelManager.Instance.SpawnRandom(transform.position);
             //new
-            LevelManager.Instance.SpawnRoom();
             gameObject.SetActive(false);
+            LevelManager.Instance.SpawnRoom();
         }
        
     }

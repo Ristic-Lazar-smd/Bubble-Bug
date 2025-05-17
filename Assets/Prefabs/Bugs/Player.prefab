@@ -172,10 +172,12 @@ MonoBehaviour:
   wallCheck: {fileID: 6842738624559191614}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 193
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
+  canWallSlide: 1
+  canWallJump: 1
 --- !u!212 &8206247840509259714
 SpriteRenderer:
   m_ObjectHideFlags: 0

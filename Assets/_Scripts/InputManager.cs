@@ -12,6 +12,8 @@ public class InputManager : MonoBehaviour
     public event StartTouchEvent OnStartTouch;
     public delegate void EndTouchEvent(Vector2 position, float time);
     public event EndTouchEvent OnEndTouch;
+    [Tooltip("Debug loguje pozociju i vreme touch start i touch end")]
+    [SerializeField] bool debug;
 
     private void Awake()
     {
@@ -37,7 +39,8 @@ public class InputManager : MonoBehaviour
 
     private void StartTouch(InputAction.CallbackContext context)
     {
-        Debug.Log("Touch Started" + playerInput.Touch.TouchPosition.ReadValue<Vector2>());
+
+        if (debug) { Debug.Log("Touch Started" + playerInput.Touch.TouchPosition.ReadValue<Vector2>()); }
 
         if (OnStartTouch != null)
         {
@@ -47,7 +50,7 @@ public class InputManager : MonoBehaviour
 
     private void EndTouch(InputAction.CallbackContext context)
     {
-        Debug.Log("Touch Ended" + playerInput.Touch.TouchPosition.ReadValue<Vector2>());
+        if (debug) { Debug.Log("Touch Ended" + playerInput.Touch.TouchPosition.ReadValue<Vector2>()); }
 
         if (OnEndTouch != null)
         {

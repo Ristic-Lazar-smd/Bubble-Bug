@@ -1200,7 +1200,7 @@ SpriteRenderer:
   m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1407327328
@@ -1683,6 +1683,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 4622538543361092194, guid: 081cfd94fbd0c064fa9f2ef2555c3cd1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4869323858484933193, guid: 081cfd94fbd0c064fa9f2ef2555c3cd1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1847,6 +1851,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8885563042438559513, guid: f34e98ad9814d944f98221cfcbeb1290, type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 4565522116996089589, guid: d2415017b88c8c540b4110ef39011c64, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

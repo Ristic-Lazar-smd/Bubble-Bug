@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
@@ -13,15 +15,18 @@ public class LevelManager : MonoBehaviour
     Vector3 spawnPoint;
     Vector3 firstSpawnPoint;
     Vector3 nextSpawnPoint;
+    private Queue<GameObject> deleteionQueue = new();
+    [SerializeField] int  startDeletingAfter = 4;
+
 
     [Header("Settings")]
 
     [Tooltip("Number of rooms the player needs to pass for the difficulty to change")]
     public int changeDifficultyEvery;
     [Tooltip("Minimum number of rooms to spawn per biom.")]
-    [SerializeField] int lowEnd;
+    [SerializeField] public int lowEnd;
     [Tooltip("Maximum number of rooms to spawn per biom, Max spawns higEnd - 1 rooms")]
-    [SerializeField] int highEnd;
+    [SerializeField] public int highEnd;
 
 
     void Awake()
@@ -41,11 +46,17 @@ public class LevelManager : MonoBehaviour
     public void SpawnRoom(){
         GameObject newRoom = Instantiate(GenerateNextRoom().LevelPrefab, spawnPoint, Quaternion.identity);
         spawnPoint = new Vector3(0,newRoom.GetComponent<HighestPointFinder>().GetHighestPoint());
+        deleteionQueue.Enqueue(newRoom);
+        DeleteQueuedRooms();
+        Debug.Log("Prvi spawnroom");
     }
     // Override version with manual position
     public void SpawnRoom(Vector3 manualSpawnPoint){ 
         GameObject newRoom = Instantiate(GenerateNextRoom().LevelPrefab, manualSpawnPoint, Quaternion.identity);
         spawnPoint = new Vector3(0,newRoom.GetComponent<HighestPointFinder>().GetHighestPoint());
+        deleteionQueue.Enqueue(newRoom);
+        Debug.Log("Drugi spawnroom");
+
     }
 
     public LevelInfo GenerateNextRoom(){
@@ -92,6 +103,12 @@ public class LevelManager : MonoBehaviour
         currentBiomeRoomsLeft = Random.Range(lowEnd, highEnd); // lowEnd to highEnd-1 rooms
         
         Debug.Log($"Switching to {currentBiome} biome for {currentBiomeRoomsLeft} rooms");
+    }
+
+    private void DeleteQueuedRooms(){
+        if (deleteionQueue.Count>=startDeletingAfter){
+            Destroy(deleteionQueue.Dequeue());
+        }
     }
 
 
