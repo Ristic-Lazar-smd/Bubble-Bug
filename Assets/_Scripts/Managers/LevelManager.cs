@@ -18,6 +18,8 @@ public class LevelManager : MonoBehaviour
     private Queue<GameObject> deleteionQueue = new();
     [SerializeField] int  startDeletingAfter = 4;
 
+    public Queue<int> scoreQueue;
+
 
     [Header("Settings")]
 
@@ -46,17 +48,15 @@ public class LevelManager : MonoBehaviour
     public void SpawnRoom(){
         GameObject newRoom = Instantiate(GenerateNextRoom().LevelPrefab, spawnPoint, Quaternion.identity);
         spawnPoint = new Vector3(0,newRoom.GetComponent<HighestPointFinder>().GetHighestPoint());
+
         deleteionQueue.Enqueue(newRoom);
         DeleteQueuedRooms();
-        Debug.Log("Prvi spawnroom");
     }
     // Override version with manual position
     public void SpawnRoom(Vector3 manualSpawnPoint){ 
         GameObject newRoom = Instantiate(GenerateNextRoom().LevelPrefab, manualSpawnPoint, Quaternion.identity);
         spawnPoint = new Vector3(0,newRoom.GetComponent<HighestPointFinder>().GetHighestPoint());
         deleteionQueue.Enqueue(newRoom);
-        Debug.Log("Drugi spawnroom");
-
     }
 
     public LevelInfo GenerateNextRoom(){
@@ -68,7 +68,7 @@ public class LevelManager : MonoBehaviour
         levelCounter++;
         if (levelCounter % changeDifficultyEvery == 0){
             currentDifficulty++;
-            Debug.Log($"Difficulty increased to {currentDifficulty}");
+            //Debug.Log($"Difficulty increased to {currentDifficulty}");
         }
         // Filter rooms by current biome and difficulty
         var biomeRooms = allLevels.Where(r => 
@@ -77,17 +77,15 @@ public class LevelManager : MonoBehaviour
 
         // Failsafe if no rooms with current filters
         if (biomeRooms.Count == 0){
-            Debug.LogWarning("No rooms available with current filters! Random room spawned.");
+            //Debug.LogWarning("No rooms available with current filters! Random room spawned.");
             biomeRooms = allLevels.Where(r => r.Biom == currentBiome).ToList();
         }
         // Select random room from filtered list
         var selectedRoom = biomeRooms[Random.Range(0, biomeRooms.Count)];
         currentBiomeRoomsLeft--;
-        
-        Debug.Log($"Spawning {selectedRoom.LevelPrefab.name} " +
-                 $"(Biome: {currentBiome}, " +
-                 $"Difficulty: {currentDifficulty}");
-        
+
+        //Debug.Log($"Spawning {selectedRoom.LevelPrefab.name} " + $"(Biome: {currentBiome}, " + $"Difficulty: {currentDifficulty}");
+        scoreQueue.Enqueue(selectedRoom.Score);
         return selectedRoom;
     }
 
@@ -102,7 +100,7 @@ public class LevelManager : MonoBehaviour
         currentBiome = candidateBiomes[Random.Range(0, candidateBiomes.Count)];
         currentBiomeRoomsLeft = Random.Range(lowEnd, highEnd); // lowEnd to highEnd-1 rooms
         
-        Debug.Log($"Switching to {currentBiome} biome for {currentBiomeRoomsLeft} rooms");
+        //Debug.Log($"Switching to {currentBiome} biome for {currentBiomeRoomsLeft} rooms");
     }
 
     private void DeleteQueuedRooms(){
@@ -110,6 +108,4 @@ public class LevelManager : MonoBehaviour
             Destroy(deleteionQueue.Dequeue());
         }
     }
-
-
 }

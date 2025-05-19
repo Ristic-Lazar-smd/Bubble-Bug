@@ -4,7 +4,9 @@ using UnityEngine;
 public class LevelInfo : ScriptableObject
 {
     public int Difficulty;
-    
+    [Tooltip("The base amount of points the player gets after passing this level ")]
+    public int Score;
+
     public enum BiomType
     {
         Forest,

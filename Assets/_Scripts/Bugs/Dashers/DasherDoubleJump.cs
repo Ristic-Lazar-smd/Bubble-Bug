@@ -3,7 +3,7 @@ using UnityEngine;
 public class DasherDoubleJump : PlayerMovement
 {
     protected override void OnTouchStart(Vector2 worldPosition, float time) {
-        if (CanJump()){
+        if (CanJump() && jumpCounter>0){
             if (!IsWalled()) {
                 if (worldPosition.x > 0f) {
                     //Jump right
