@@ -124,10 +124,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5247810500343504638}
-  - component: {fileID: 1186980792004186504}
   - component: {fileID: 8206247840509259714}
   - component: {fileID: 3820135998266445301}
   - component: {fileID: 3480702324004497766}
+  - component: {fileID: 1186980792004186504}
   - component: {fileID: 3639022458320339448}
   - component: {fileID: 7605710240941454115}
   - component: {fileID: 5645583566163826857}
@@ -155,29 +155,6 @@ Transform:
   - {fileID: 2218329448172085472}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1186980792004186504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2148014275232461975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b349de368e0d5ea4181db885ec03ca79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 93bc9fd7ba16fb44db2308f1fed82b02, type: 2}
-  groundCheck: {fileID: 2218329448172085472}
-  wallCheck: {fileID: 6842738624559191614}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 193
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  canWallSlide: 1
-  canWallJump: 1
 --- !u!212 &8206247840509259714
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -296,6 +273,29 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1186980792004186504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2148014275232461975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b349de368e0d5ea4181db885ec03ca79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 93bc9fd7ba16fb44db2308f1fed82b02, type: 2}
+  groundCheck: {fileID: 2218329448172085472}
+  wallCheck: {fileID: 6842738624559191614}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 193
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  canWallSlide: 1
+  canWallJump: 1
 --- !u!114 &3639022458320339448
 MonoBehaviour:
   m_ObjectHideFlags: 0

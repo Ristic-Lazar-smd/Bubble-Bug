@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
     private Queue<GameObject> deleteionQueue = new();
     [SerializeField] int  startDeletingAfter = 4;
 
-    public Queue<int> scoreQueue;
+    public Queue<int> scoreQueue = new();
 
 
     [Header("Settings")]
@@ -86,6 +86,7 @@ public class LevelManager : MonoBehaviour
 
         //Debug.Log($"Spawning {selectedRoom.LevelPrefab.name} " + $"(Biome: {currentBiome}, " + $"Difficulty: {currentDifficulty}");
         scoreQueue.Enqueue(selectedRoom.Score);
+        //Debug.Log(selectedRoom.Score);
         return selectedRoom;
     }
 

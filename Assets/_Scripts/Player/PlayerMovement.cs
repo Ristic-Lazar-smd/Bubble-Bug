@@ -1,4 +1,5 @@
 using System.Collections;
+using NUnit.Framework;
 using NUnit.Framework.Internal;
 using UnityEngine;
 
@@ -14,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     protected BugStats stats;
 
     [Header("References")]
-    [SerializeField] protected Transform groundCheck;
     [SerializeField] protected Transform wallCheck;
     [SerializeField] protected LayerMask groundLayer;
     [SerializeField] protected LayerMask wallLayer;
@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] bool canWallJump;
     
     private float wallHitBoxSize;
-    private InputManager inputManager;
+    protected InputManager inputManager;
     private Camera cameraMain;
     protected Rigidbody2D rb;
 
@@ -37,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
     bool fallstraight = true;
     protected int jumpCounter;
     protected bool isGrounded;
-
 
     public bool IsGrounded {
         get { return isGrounded; }
@@ -55,15 +54,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //------------------------------------------------//
-    private void OnEnable() {
+    protected virtual void OnEnable() {
         inputManager.OnStartTouch += OnTouchStart;
         inputManager.OnEndTouch += OnTouchEnd;
     }
-    private void OnDisable() {
+    protected virtual void OnDisable() {
         inputManager.OnStartTouch -= OnTouchStart;
         inputManager.OnEndTouch += OnTouchEnd;
     }
-    protected void Awake() {
+    protected virtual void Awake() {
         rb = GetComponent<Rigidbody2D>();
         wallHitBoxSize = GetComponent<PlayerDrawGizmos>().wallHitBoxSize;
         inputManager = InputManager.Instance;
@@ -100,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f); 
         }
     }
-    protected void Update() {
+    protected virtual void Update() {
         //if walled shoot ray straight down, if hit flip,
         if (IsWalled()) {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, groundLayer);
@@ -134,12 +133,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    protected void FixedUpdate() {
+    protected virtual void FixedUpdate() {
         //Moves player left - right
         if (!fallstraight && !isWallSliding) { rb.linearVelocity = new Vector2(direction * stats.speed, rb.linearVelocity.y); }
         
         //OneWayPlatform handler **NAPOMENTA** promeni poziciju iz koje pucas ray ako promenis debljinu platforme
-        RaycastHit2D hit = Physics2D.Raycast((/*groundCheck.position*/transform.position + new Vector3(0f, -0.3f)), Vector2.down, 1f, LayerMask.GetMask("OneWayPlatform"));
+        RaycastHit2D hit = Physics2D.Raycast((transform.position + new Vector3(0f, -0.3f)), Vector2.down, 1f, LayerMask.GetMask("OneWayPlatform"));
         if (hit) {
             OneWayPlatform = hit.collider.gameObject;
             StartCoroutine(ChangePlatform());
