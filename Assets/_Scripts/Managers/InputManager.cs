@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,22 +10,22 @@ public class InputManager : MonoBehaviour
 
     private PlayerInput playerInput;
 
+    // Eventovi za Touch
     public delegate void StartTouchEvent(Vector2 position, float time);
     public event StartTouchEvent OnStartTouch;
     public delegate void EndTouchEvent(Vector2 position, float time);
     public event EndTouchEvent OnEndTouch;
+    // Eventovi za Hold
+    public event Action OnStartHold;
+    public event Action OnEndHold;
+    public event Action OnCancelHold;
+    public event Action OnPerformHold;
+
+    // Misc
     [Tooltip("Debug loguje pozociju i vreme touch start i touch end")]
     [SerializeField] bool debug;
     private Camera mainCamera;
     private bool holding;
-
-    public TextMeshProUGUI started;
-    public TextMeshProUGUI performed;
-    public TextMeshProUGUI end;
-
-    private int counter1;
-    private int counter2;
-    private int counter3;
 
     private void Awake()
     {
@@ -79,15 +80,30 @@ public class InputManager : MonoBehaviour
     private void HoldPerformed(InputAction.CallbackContext context)
     {
         Debug.Log("Hold Performed");
-        performed.text += counter2;
+        holding = true;
+
+        OnPerformHold?.Invoke();
     }
-    private void EndHold(InputAction.CallbackContext context) {
-        Debug.Log("Hold Ended");
-        end.text += counter3;
+    private void EndHold(InputAction.CallbackContext context)
+    {  
+        if(holding == true)
+        {
+            Debug.Log("Hold Ended");
+            OnEndHold?.Invoke();
+            holding = false;
+        }
+        else
+        {
+            Debug.Log("Hold Canceled");
+            OnCancelHold?.Invoke();
+            holding = false;
+        }
     }
     private void StartHold(InputAction.CallbackContext context)
     {
         Debug.Log("Hold Started");
-        started.text += counter1;
+        holding = false;
+
+        OnStartHold?.Invoke();
     }
 }
