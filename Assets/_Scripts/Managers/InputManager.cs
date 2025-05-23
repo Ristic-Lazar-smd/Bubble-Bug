@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,15 @@ public class InputManager : MonoBehaviour
     [Tooltip("Debug loguje pozociju i vreme touch start i touch end")]
     [SerializeField] bool debug;
     private Camera mainCamera;
+    private bool holding;
+
+    public TextMeshProUGUI started;
+    public TextMeshProUGUI performed;
+    public TextMeshProUGUI end;
+
+    private int counter1;
+    private int counter2;
+    private int counter3;
 
     private void Awake()
     {
@@ -37,11 +47,13 @@ public class InputManager : MonoBehaviour
     {
         playerInput.Touch.Touch.started += ctx => StartTouch(ctx);
         playerInput.Touch.Touch.canceled += ctx => EndTouch(ctx);
+        playerInput.Touch.Hold.performed += ctx => HoldPerformed(ctx);
+        playerInput.Touch.Hold.started += ctx => StartHold(ctx);
+        playerInput.Touch.Hold.canceled += ctx => EndHold(ctx);
     }
 
     private void StartTouch(InputAction.CallbackContext context)
     {
-
         if (debug) { Debug.Log("Touch Started" + (Utils.ScreenToWorld(mainCamera, playerInput.Touch.TouchPosition.ReadValue<Vector2>()))); }
 
         if (OnStartTouch != null)
@@ -64,4 +76,18 @@ public class InputManager : MonoBehaviour
         return Utils.ScreenToWorld(mainCamera, playerInput.Touch.TouchPosition.ReadValue<Vector2>());
     }
 
+    private void HoldPerformed(InputAction.CallbackContext context)
+    {
+        Debug.Log("Hold Performed");
+        performed.text += counter2;
+    }
+    private void EndHold(InputAction.CallbackContext context) {
+        Debug.Log("Hold Ended");
+        end.text += counter3;
+    }
+    private void StartHold(InputAction.CallbackContext context)
+    {
+        Debug.Log("Hold Started");
+        started.text += counter1;
+    }
 }
