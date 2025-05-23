@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
                     jumpCounter = 0;
                     jumpCoyoteTimer = stats.jumpCoyoteWindow;
                     fallstraight = false;
+                    wallJumpCoyoteTimer = 0;
                 }
             }
         }
