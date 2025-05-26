@@ -78,30 +78,17 @@ public class ClimberSlingshot : MonoBehaviour
             if (dragVector.magnitude > maxDragDistance) { dragVector = dragVector.normalized * maxDragDistance; }
             UpdateLine();
         }
-        if (IsWalled() && !stopMove) {
-            OnWallHandler();
-           /* RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, groundLayer);
-            if (hit.collider) {
-                //Flip();
-                Debug.DrawRay(transform.position, Vector2.down * 0.2f, Color.red, 2);
-            } else { OnWallHandler(); }*/
-        }
+        
         if (IsWalled()) OnWallHandler();
 
         
 
 
     }
-
-    void FixedUpdate()
-    {
-        //if (!stopMove) rb.linearVelocity = new Vector2(direction * stats.speed, rb.linearVelocity.y);
-    }
     
     void OnWallHandler(){
         stopMove = true;
         rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezePositionX;
-        //rb.constraints = RigidbodyConstraints2D.FreezePositionX;
     }
 
 

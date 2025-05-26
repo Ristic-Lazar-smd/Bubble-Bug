@@ -1,12 +1,11 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
-using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
-
+    Queue<int> scoreQueue;
     [SerializeField]private LevelInfo[] allLevels;
     private int currentBiomeRoomsLeft = 0;
     private LevelInfo.BiomType currentBiome;
@@ -16,9 +15,7 @@ public class LevelManager : MonoBehaviour
     Vector3 firstSpawnPoint;
     Vector3 nextSpawnPoint;
     private Queue<GameObject> deleteionQueue = new();
-    [SerializeField] int  startDeletingAfter = 4;
-
-    public Queue<int> scoreQueue = new();
+    [SerializeField] int  startDeletingAfter = 5;
 
 
     [Header("Settings")]
@@ -35,6 +32,7 @@ public class LevelManager : MonoBehaviour
     {
         Instance = this;
         spawnPoint = new Vector3 (0,0);
+        scoreQueue = ScoreManager.Instance.scoreQueue;
     }
 
     void Start(){
@@ -43,7 +41,7 @@ public class LevelManager : MonoBehaviour
 
     public void LevelStart(){
         SpawnRoom(new Vector3(0,-4));
-        //SpawnRoom(spawnPoint);
+        SpawnRoom(spawnPoint);
     }
     public void SpawnRoom(){
         GameObject newRoom = Instantiate(GenerateNextRoom().LevelPrefab, spawnPoint, Quaternion.identity);
@@ -86,7 +84,6 @@ public class LevelManager : MonoBehaviour
 
         //Debug.Log($"Spawning {selectedRoom.LevelPrefab.name} " + $"(Biome: {currentBiome}, " + $"Difficulty: {currentDifficulty}");
         scoreQueue.Enqueue(selectedRoom.Score);
-        //Debug.Log(selectedRoom.Score);
         return selectedRoom;
     }
 
