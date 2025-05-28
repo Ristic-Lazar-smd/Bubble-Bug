@@ -1,53 +1,60 @@
+using System.Collections;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ClimbersSlingshotMovement : PlayerMovement
 {
-    [SerializeField] private float slingForce=2f;
+    [SerializeField] private float slingForce=5f;
+    [SerializeField]private float maxDragDistance = 2f;
+    [SerializeField] private float cancelTreshold = 0.2f;
     bool isHolding;
     bool stopOld = false;
-    InputManager climberInputManager;
-    LineRenderer lineRenderer;  
+    ClimberTrajectory trajectory;
     Vector2 dragVector;
     Vector2 slingshotOrigin;
+    Vector2 currentTouchPos;
     bool sling;
 
     protected override void Awake()
     {
-        climberInputManager = InputManager.Instance;
-        lineRenderer = GetComponent<LineRenderer>();
+        trajectory = GetComponent<ClimberTrajectory>();
         base.Awake();
-    }
-    protected override void OnEnable() { 
-        //climberInputManager.OnStartHold += OnHoldStart;
-        //climberInputManager.OnEndHold += OnHoldEnd;
-        base.OnEnable();
     }
 
     protected override void Update()
     {
-        Debug.Log(rb.linearVelocityX);
-        if (isHolding && IsWalled()) {
+        if (isHolding && IsWalled() && !base.IsGrounded) {
             
             sling = true;
             stopOld = true;
+            currentTouchPos = inputManager.PrimaryPosition();
             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezePositionX;
-            
-            dragVector = inputManager.PrimaryPosition() - slingshotOrigin;
-            //if (dragVector.x>=0 && base.direction>=0 || dragVector.x<0 && base.direction<0) base.Flip();
-            UpdateLine();
 
-        }else {  /*stopOld = false;*/}
+            //Drag Vector constraints
+            dragVector = currentTouchPos - slingshotOrigin;
+            if (dragVector.magnitude > maxDragDistance) { dragVector = dragVector.normalized * maxDragDistance; }
+            if (direction>0 && dragVector.x<0.15) dragVector.x = 0.15f;
+            if (direction<0 && dragVector.x>-0.15) dragVector.x = -0.15f;
 
-        if(!stopOld) base.Update();
+            //Cancel sling
+            if ((currentTouchPos-slingshotOrigin).magnitude<cancelTreshold) sling = false;
+        }
 
         if (base.IsGrounded){
             stopOld = false;
             sling = false;
         }
 
-        
+        if(!stopOld) base.Update();
 
+        if (IsWalled() && !isHolding) { stopOld = false; }
+
+        if (sling){
+            trajectory.Show(slingshotOrigin);
+            trajectory.UpdateDots(rb.transform.position, (-dragVector * slingForce));
+        } else trajectory.Hide();
     }
 
     protected override void OnTouchStart(Vector2 worldPosition, float time) { 
@@ -56,30 +63,23 @@ public class ClimbersSlingshotMovement : PlayerMovement
         if(!stopOld) base.OnTouchStart(worldPosition, time);
     }
     protected override void OnTouchEnd(Vector2 worldPosition, float time) { 
-        if(!stopOld) base.OnTouchEnd(worldPosition, time);
-        //stopOld = false;
         isHolding = false;
         rb.constraints = RigidbodyConstraints2D.None;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        if (dragVector.magnitude < cancelTreshold) { sling = false; }
         if (sling) {
-            rb.constraints = RigidbodyConstraints2D.None;
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            lineRenderer.enabled = false;
+            base.jumpCounter++;
             rb.AddForce(-dragVector * slingForce, ForceMode2D.Impulse);
-            lineRenderer.enabled = false;
             Flip();
-
-            //sling = false;
+            sling = false;
         }
+        if(!stopOld) base.OnTouchEnd(worldPosition, time);
     }
     protected override void FixedUpdate() {
-        if (!sling) { base.FixedUpdate(); }
+        if (!stopOld) { base.FixedUpdate(); }
     }
 
 
-    private void UpdateLine(){
-        lineRenderer.enabled = true;
-        lineRenderer.SetPosition(0, rb.position);
-        lineRenderer.SetPosition(1, rb.position - dragVector);
-    }
+
+
 }

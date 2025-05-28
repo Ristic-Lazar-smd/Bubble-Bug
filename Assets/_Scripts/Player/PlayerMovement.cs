@@ -135,7 +135,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     protected virtual void FixedUpdate() {
-        Debug.Log("tsetsetste");
         //Moves player left - right
         if (!fallstraight && !isWallSliding) { rb.linearVelocity = new Vector2(direction * stats.speed, rb.linearVelocity.y); }
         
