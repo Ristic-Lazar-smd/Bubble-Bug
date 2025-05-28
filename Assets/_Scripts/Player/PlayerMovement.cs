@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     protected float jumpCoyoteTimer;
     protected float wallJumpingDirection;
     protected Vector3 localScale;
-    bool fallstraight = true;
+    protected bool fallstraight = true;
     protected int jumpCounter;
     protected bool isGrounded;
 
@@ -120,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
         wallJumpCoyoteTimer -= Time.deltaTime;
     }
 
-    protected void OnWallHandler(){
+    protected virtual void OnWallHandler(){
         if (canWallSlide) {
             isWallSliding = true;
             rb.linearVelocity = new Vector2(0, Mathf.Clamp(rb.linearVelocity.y, -stats.wallSlidingSpeed, float.MaxValue));
@@ -135,6 +135,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     protected virtual void FixedUpdate() {
+        Debug.Log("tsetsetste");
         //Moves player left - right
         if (!fallstraight && !isWallSliding) { rb.linearVelocity = new Vector2(direction * stats.speed, rb.linearVelocity.y); }
         

@@ -79,7 +79,7 @@ public class InputManager : MonoBehaviour
 
     private void HoldPerformed(InputAction.CallbackContext context)
     {
-        Debug.Log("Hold Performed");
+        //Debug.Log("Hold Performed");
         holding = true;
 
         OnPerformHold?.Invoke();
@@ -88,13 +88,13 @@ public class InputManager : MonoBehaviour
     {  
         if(holding == true)
         {
-            Debug.Log("Hold Ended");
+            //Debug.Log("Hold Ended");
             OnEndHold?.Invoke();
             holding = false;
         }
         else
         {
-            Debug.Log("Hold Canceled");
+            //Debug.Log("Hold Canceled");
             OnCancelHold?.Invoke();
             holding = false;
         }
