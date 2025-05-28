@@ -16,4 +16,4 @@ MonoBehaviour:
   Score: 1
   Biom: 0
   Gameplay: 0
-  LevelPrefab: {fileID: 7039044309578796303, guid: 947000f5a9357bf4493a832cb83313a5, type: 3}
+  LevelPrefab: {fileID: 4486150818545523774, guid: b8c6d675ae7b0204bb33fcb0c2533abd, type: 3}
