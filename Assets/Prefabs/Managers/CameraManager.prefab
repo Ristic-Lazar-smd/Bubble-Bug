@@ -56,3 +56,7 @@ MonoBehaviour:
     virtualCamera: {fileID: 0}
   - label: TerrariumMain
     virtualCamera: {fileID: 0}
+  introSequnce:
+  - Intro1
+  - Intro2
+  - TerrariumMain

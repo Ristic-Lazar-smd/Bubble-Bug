@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 using Dan.Models;
 
-namespace Dan.Demo
-{
+/*namespace Dan.Demo
+{*/
     public class EntryDisplay : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _rankText, _usernameText, _scoreText, _timeText;
@@ -22,4 +22,4 @@ namespace Dan.Demo
             GetComponent<Image>().color = entry.IsMine() ? Color.yellow : Color.white;
         }
     }
-}
+//}

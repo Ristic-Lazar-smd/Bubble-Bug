@@ -44,7 +44,7 @@ public class LevelManager : MonoBehaviour
         spawnPoint = new Vector3 (0,-4);
         scoreQueue = ScoreManager.Instance.scoreQueue;
         GetAllBiomes();
-        LevelStart();
+        //LevelStart();
     }
 
     public void LevelStart(){

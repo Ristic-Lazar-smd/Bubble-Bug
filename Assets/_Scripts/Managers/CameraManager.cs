@@ -17,7 +17,9 @@ public class CameraManager : MonoBehaviour
         public CinemachineVirtualCamera virtualCamera;
     }
     [SerializeField] private List<LabeledCamera> _allCameras = new List<LabeledCamera>();
-    
+
+    [SerializeField] List<string> introSequnce = new();
+
 
     public LabeledCamera GetCameraByLabel(string label){
         return _allCameras.Find(cam => cam.label == label);
@@ -29,6 +31,7 @@ public class CameraManager : MonoBehaviour
         GetCameraByLabel(label).virtualCamera.Priority=100;
     }
     
+    //fja prima sekvencu kamera koju aktivira
     public void SwitchToCameraSequence(List<string> cameraLabels){
         if (activeSequence != null){
             StopCoroutine(activeSequence);
@@ -48,8 +51,8 @@ public class CameraManager : MonoBehaviour
     }
 
     void Start(){
-        List<string> mySequence = new List<string> {"Intro1","Intro2","TerrariumMain"};
-        SwitchToCameraSequence(mySequence);
+        //mySequence = new List<string> {"Intro1","Intro2","TerrariumMain"};
+        SwitchToCameraSequence(introSequnce);
     }
 
     void Update(){
@@ -58,12 +61,10 @@ public class CameraManager : MonoBehaviour
             isShifting = true;
             MenuManager.Instance.OpenMenu(MenuType.Title);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && activeSequence == null)
-            StartGame();
     }
 
-    public void StartGame()
+    /*public void StartGame()
     {
         SwitchToVirtualCamera("PlayCamera");
-    }
+    }*/
 }

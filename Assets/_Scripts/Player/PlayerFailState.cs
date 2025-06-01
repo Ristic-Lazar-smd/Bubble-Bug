@@ -8,7 +8,7 @@ public class PlayerFailState : MonoBehaviour
  
     void OnTriggerEnter2D(Collider2D col){
         if (col.CompareTag("DeathPlane")){
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+            GameManager.Instance.FailState();
         }
     }
 }
