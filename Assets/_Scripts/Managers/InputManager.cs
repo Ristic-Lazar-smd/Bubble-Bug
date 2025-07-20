@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance;
 
     private PlayerInput playerInput;
+    [field: NonSerialized] public SwipeDetection swipeDetection { get; private set; }
 
     // Eventovi za Touch
     public delegate void StartTouchEvent(Vector2 position, float time);
@@ -32,6 +33,7 @@ public class InputManager : MonoBehaviour
         Instance = this;
         playerInput = new PlayerInput();
         mainCamera = Camera.main;
+        swipeDetection = GetComponent<SwipeDetection>();
     }
 
     private void OnEnable()
