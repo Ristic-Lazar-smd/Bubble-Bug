@@ -56,6 +56,18 @@ PrefabInstance:
       propertyPath: drawInEditor
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8206247840509259714, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
+      propertyPath: m_Color.b
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 8206247840509259714, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8206247840509259714, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
+      propertyPath: m_Color.r
+      value: 0.20392157
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

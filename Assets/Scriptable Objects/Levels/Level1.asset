@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6b0f21f6816084ea063bf175995ce3, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  Difficulty: 1
-  Score: 1
+  Difficulty: 2
+  Score: 5
   Biom: 0
   Gameplay: 0
-  LevelPrefab: {fileID: 4486150818545523774, guid: 09d4d36680a6411468374ef1c0710cbe, type: 3}
+  LevelPrefab: {fileID: 7039044309578796303, guid: 947000f5a9357bf4493a832cb83313a5, type: 3}

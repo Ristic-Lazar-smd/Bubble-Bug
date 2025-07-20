@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d6b0f21f6816084ea063bf175995ce3, type: 3}
-  m_Name: Level2
+  m_Name: Level10
   m_EditorClassIdentifier: 
   Difficulty: 2
-  Score: 2
+  Score: 6
   Biom: 0
   Gameplay: 0
-  LevelPrefab: {fileID: 1556909176640966721, guid: 7128e78b28e5a7642b9608531423a82d, type: 3}
+  LevelPrefab: {fileID: 4486150818545523774, guid: b8c6d675ae7b0204bb33fcb0c2533abd, type: 3}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level3
   m_EditorClassIdentifier: 
   Difficulty: 1
-  Score: 3
+  Score: 2
   Biom: 0
   Gameplay: 0
-  LevelPrefab: {fileID: 4486150818545523774, guid: 671ac08e0e2ad714abd5ea7e3a5c79e0, type: 3}
+  LevelPrefab: {fileID: 9153753321165865472, guid: bef4ac99c0017f142843bac292fd91ab, type: 3}

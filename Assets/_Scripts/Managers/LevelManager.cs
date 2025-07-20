@@ -76,7 +76,7 @@ public class LevelManager : MonoBehaviour
             if (currentDifficulty < maxDifficulty) {
                 currentDifficulty++;
             }
-            //Debug.Log($"Difficulty increased to {currentDifficulty}");
+            Debug.Log($"Difficulty increased to {currentDifficulty}");
         }
         // Filter rooms by current biome and difficulty
         var biomeRooms = allLevels.Where(r => 

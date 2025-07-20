@@ -64,6 +64,18 @@ PrefabInstance:
       propertyPath: showHitBox
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8206247840509259714, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8206247840509259714, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
+      propertyPath: m_Color.g
+      value: 0.43867922
+      objectReference: {fileID: 0}
+    - target: {fileID: 8206247840509259714, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
+      propertyPath: m_Color.r
+      value: 0.77451205
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1186980792004186504, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
     m_RemovedGameObjects: []
@@ -73,11 +85,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5691431494333533434}
   m_SourcePrefab: {fileID: 100100000, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
---- !u!4 &4349825599466558082 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2218329448172085472, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
-  m_PrefabInstance: {fileID: 2491820690983826018}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4565522116996089589 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2148014275232461975, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
@@ -96,7 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 428e64634f80f464cba64af40f2a288f, type: 2}
-  groundCheck: {fileID: 4349825599466558082}
   wallCheck: {fileID: 8962993600564372572}
   groundLayer:
     serializedVersion: 2

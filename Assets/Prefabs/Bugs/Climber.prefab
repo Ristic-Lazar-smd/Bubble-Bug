@@ -119,6 +119,18 @@ PrefabInstance:
       propertyPath: drawInEditor
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8206247840509259714, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
+      propertyPath: m_Color.b
+      value: 0.08018869
+      objectReference: {fileID: 0}
+    - target: {fileID: 8206247840509259714, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
+      propertyPath: m_Color.g
+      value: 0.99999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 8206247840509259714, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8734328016157808413, guid: b7ea6242a9547e04b80a1974dfd15f88, type: 3}
       propertyPath: m_Enabled
       value: 1
