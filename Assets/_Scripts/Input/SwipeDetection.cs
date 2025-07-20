@@ -23,6 +23,8 @@ public class SwipeDetection : MonoBehaviour
     public event Action OnSwipeLeft;
     public event Action OnSwipeRight;
 
+    public event Action OnAnySwipe;
+
     private void Awake() {
         inputManager = InputManager.Instance;
     }
@@ -67,6 +69,7 @@ public class SwipeDetection : MonoBehaviour
             Vector3 direction = endPosition - startPosition;
             Vector2 direction2D = new Vector2(direction.x, direction.y).normalized;
 
+            OnAnySwipe?.Invoke();
             SwipeDirection(direction2D);
         }
     }
