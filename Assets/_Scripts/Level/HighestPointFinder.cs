@@ -18,6 +18,10 @@ public class HighestPointFinder : MonoBehaviour
     }
     #endif
 
+    void Awake(){
+        CalculateWorldSpaceHighestPoint();
+    }
+
     private void CalculateWorldSpaceHighestPoint()
     {
         SpriteRenderer[] allSprites = GetComponentsInChildren<SpriteRenderer>();
@@ -64,10 +68,13 @@ public class HighestPointFinder : MonoBehaviour
         #endif
     }
     [SerializeField] GameObject halfWay;
-    void Awake()
-    {
+
+    public void SpawnHalfWayTrigger(){
+        CalculateWorldSpaceHighestPoint();
         GameObject spawnedHalfWay = Instantiate(halfWay,transform.position,Quaternion.identity,transform);
         spawnedHalfWay.transform.localPosition = new Vector3(0,GetHighestPoint()/2);
-        CalculateWorldSpaceHighestPoint();
+
     }
+
+    
 }
