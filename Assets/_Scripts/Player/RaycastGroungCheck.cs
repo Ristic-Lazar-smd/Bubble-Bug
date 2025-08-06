@@ -12,6 +12,7 @@ public class RaycastGroungCheck : MonoBehaviour
     PlayerMovement playerMovement;
 
     [Header("Ray Configuration")]
+    [Range(0, 2)]public float masterLength = 1f;
     public List<RayDefinition2D> rays = new List<RayDefinition2D>();
     public LayerMask layerMask = ~0;
     public bool drawInEditor = true;
@@ -49,7 +50,7 @@ public class RaycastGroungCheck : MonoBehaviour
         foreach (var rayDef in rays){
             Vector2 direction = CalculateDirection(rayDef.angle);
             Vector2 origin = transform.position;
-            RaycastHit2D hit = Physics2D.Raycast(origin, direction, rayDef.length, layerMask);
+            RaycastHit2D hit = Physics2D.Raycast(origin, direction, rayDef.length*masterLength, layerMask);
             if (hit.collider != null) _hasHit = true;
         }
     }
@@ -66,7 +67,7 @@ public class RaycastGroungCheck : MonoBehaviour
         foreach (var rayDef in rays){
             Vector2 direction = CalculateDirection(rayDef.angle);
             Gizmos.color = rayDef.debugColor;
-            Gizmos.DrawRay(transform.position, direction * rayDef.length);
+            Gizmos.DrawRay(transform.position, direction * rayDef.length*masterLength);
         }
     }
     #endif

@@ -6,6 +6,7 @@ using System.Collections;
 
 public class CameraManager : MonoBehaviour
 {
+    [SerializeField] private bool skipIntro;
     private Coroutine activeSequence;
     private bool skipRequested;
     public bool isShifting;
@@ -52,7 +53,7 @@ public class CameraManager : MonoBehaviour
 
     void Start(){
         //mySequence = new List<string> {"Intro1","Intro2","TerrariumMain"};
-        SwitchToCameraSequence(introSequnce);
+        if (!skipIntro) SwitchToCameraSequence(introSequnce); else SwitchToVirtualCamera("TerrariumMain");
     }
 
     void Update(){

@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField]private LevelInfo[] allLevels;
+
+    [Header("Single Room Testing")]
+    [SerializeField] bool singleRoomTesting;
+    [SerializeField] private LevelInfo testRoom;
 
     [Header("Settings")]
     [Tooltip("Must match the higest difficulty set in the level scriptable object")]
@@ -48,6 +51,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void LevelStart(){
+        if (singleRoomTesting) { SpawnTestRooms(); return; }
         SpawnRoom();
         SpawnRoom();
     }
@@ -63,6 +67,12 @@ public class LevelManager : MonoBehaviour
         GameObject newRoom = Instantiate(GenerateNextRoom().LevelPrefab, manualSpawnPoint, Quaternion.identity);
         spawnPoint = new Vector3(0,newRoom.GetComponent<HighestPointFinder>().GetHighestPoint());
         deleteionQueue.Enqueue(newRoom);
+    }
+    private void SpawnTestRooms(){
+        for (int i = 0; i < 10; i++) {
+            GameObject newRoom = Instantiate(testRoom.LevelPrefab, spawnPoint, Quaternion.identity);
+            spawnPoint = new Vector3(0, newRoom.GetComponent<HighestPointFinder>().GetHighestPoint());
+        }
     }
 
     public LevelInfo GenerateNextRoom(){

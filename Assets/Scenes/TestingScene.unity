@@ -1959,8 +1959,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 449372228}
     m_Modifications:
     - target: {fileID: 4663891929196501448, guid: 866e37f57d635d343b6ba249426e18cb, type: 3}
+      propertyPath: testRoom
+      value: 
+      objectReference: {fileID: 11400000, guid: ccfc8a856b21e5b40823b7d9b7e0c169, type: 2}
+    - target: {fileID: 4663891929196501448, guid: 866e37f57d635d343b6ba249426e18cb, type: 3}
       propertyPath: maxDifficulty
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4663891929196501448, guid: 866e37f57d635d343b6ba249426e18cb, type: 3}
+      propertyPath: singleRoomTesting
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4663891929196501448, guid: 866e37f57d635d343b6ba249426e18cb, type: 3}
       propertyPath: allLevels.Array.size
@@ -2762,6 +2770,10 @@ PrefabInstance:
     - target: {fileID: 551085598840701230, guid: acef0f44c002570418250b42fe4247f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231155999089893033, guid: acef0f44c002570418250b42fe4247f2, type: 3}
+      propertyPath: skipIntro
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7231155999089893033, guid: acef0f44c002570418250b42fe4247f2, type: 3}
       propertyPath: mainCamera
