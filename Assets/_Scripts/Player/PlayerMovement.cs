@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     protected bool fallstraight = true;
     protected int jumpCounter;
     protected bool isGrounded;
+    protected bool isWallJump;
 
     public bool IsGrounded {
         get { return isGrounded; }
@@ -49,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
                     jumpCoyoteTimer = stats.jumpCoyoteWindow;
                     fallstraight = false;
                     wallJumpCoyoteTimer = 0;
+                    isWallJump = false;
                 }
             }
         }
@@ -75,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         rb.transform.position = new Vector3(0, -3.5f, 0);
     }
 
-    protected virtual void OnTouchStart(Vector2 worldPosition, float time)
+    protected virtual void OnTouchStart(Vector2 worldPosition)
     {
         //Player Jump, on finger down apply up velocity, if finger up before peak of jump, apply down velocity
         if (CanJump()) {
@@ -94,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         //Wall Jump Handler end
     }
 
-    protected virtual void OnTouchEnd(Vector2 worldPosition, float time)
+    protected virtual void OnTouchEnd(Vector2 worldPosition)
     {
         if (rb.linearVelocity.y > 0f) {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f); 
@@ -131,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
             if (canWallJump) { 
                 wallJumpingDirection = -transform.localScale.x;
                 wallJumpCoyoteTimer = stats.wallJumpCoyoteWindow;
+                isWallJump = true;
         }
     }
 

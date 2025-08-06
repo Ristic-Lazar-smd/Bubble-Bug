@@ -57,16 +57,16 @@ public class ClimbersSlingshotMovement : PlayerMovement {
         if (!stopOld) base.Update();
     }
 
-    protected override void OnTouchStart(Vector2 worldPosition, float time) {
+    protected override void OnTouchStart(Vector2 worldPosition) {
         if (isSlinging) {
             slingshotOrigin = worldPosition;
 
         }
 
         isHolding = true;
-        if (!stopOld) base.OnTouchStart(worldPosition, time);
+        if (!stopOld) base.OnTouchStart(worldPosition);
     }
-    protected override void OnTouchEnd(Vector2 worldPosition, float time) {
+    protected override void OnTouchEnd(Vector2 worldPosition) {
         isHolding = false;
 
         if (slingshotOrigin != Vector2.zero && isSlinging) {
@@ -82,7 +82,7 @@ public class ClimbersSlingshotMovement : PlayerMovement {
             slingshotOrigin = Vector2.zero;
         }
 
-        if (!stopOld) base.OnTouchEnd(worldPosition, time);
+        if (!stopOld) base.OnTouchEnd(worldPosition);
     }
     protected override void FixedUpdate() {
         if (!stopOld) { base.FixedUpdate(); }

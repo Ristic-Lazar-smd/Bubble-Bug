@@ -12,9 +12,9 @@ public class InputManager : MonoBehaviour
     [field: NonSerialized] public SwipeDetection swipeDetection { get; private set; }
 
     // Eventovi za Touch
-    public delegate void StartTouchEvent(Vector2 position, float time);
+    public delegate void StartTouchEvent(Vector2 position);
     public event StartTouchEvent OnStartTouch;
-    public delegate void EndTouchEvent(Vector2 position, float time);
+    public delegate void EndTouchEvent(Vector2 position);
     public event EndTouchEvent OnEndTouch;
     // Eventovi za Hold
     public event Action OnStartHold;
@@ -61,7 +61,7 @@ public class InputManager : MonoBehaviour
 
         if (OnStartTouch != null)
         {
-            OnStartTouch(Utils.ScreenToWorld(mainCamera, playerInput.Touch.TouchPosition.ReadValue<Vector2>()), (float)context.startTime);
+            OnStartTouch(Utils.ScreenToWorld(mainCamera, playerInput.Touch.TouchPosition.ReadValue<Vector2>()));
         }
     }
 
@@ -71,7 +71,7 @@ public class InputManager : MonoBehaviour
 
         if (OnEndTouch != null)
         {
-            OnEndTouch(Utils.ScreenToWorld(mainCamera, playerInput.Touch.TouchPosition.ReadValue<Vector2>()), (float)context.time);
+            OnEndTouch(Utils.ScreenToWorld(mainCamera, playerInput.Touch.TouchPosition.ReadValue<Vector2>()));
         }
     }
 
