@@ -15,15 +15,21 @@ public class ClimbersSlingshotMovement : PlayerMovement {
     Vector2 slingshotOrigin;
     Vector2 currentTouchPos;
     bool isSlinging;
+    bool readyToStick;
 
     protected override void Awake() {
         trajectory = GetComponent<ClimberTrajectory>();
         base.Awake();
-        InputManager.Instance.swipeDetection.OnAnySwipe += hasSticked;
+        InputManager.Instance.swipeDetection.OnAnySwipe += PrepareToStick;
         slingshotOrigin = Vector2.zero;
     }
 
     protected override void Update() {
+        if (IsWalled() && readyToStick) {
+            isSlinging = true;
+            readyToStick = false;
+        }
+
         if (isSlinging) {
             stopOld = true;
             currentTouchPos = inputManager.PrimaryPosition();
@@ -52,6 +58,7 @@ public class ClimbersSlingshotMovement : PlayerMovement {
         if (base.IsGrounded) {
             stopOld = false;
             isSlinging = false;
+            readyToStick = false;
         }
 
         if (!stopOld) base.Update();
@@ -60,7 +67,6 @@ public class ClimbersSlingshotMovement : PlayerMovement {
     protected override void OnTouchStart(Vector2 worldPosition) {
         if (isSlinging) {
             slingshotOrigin = worldPosition;
-
         }
 
         isHolding = true;
@@ -88,11 +94,8 @@ public class ClimbersSlingshotMovement : PlayerMovement {
         if (!stopOld) { base.FixedUpdate(); }
     }
 
-    private void hasSticked() {
-        if (IsWalled() && !base.IsGrounded && !isSlinging) {
-            
-            Debug.Log("STICKKKK");
-            isSlinging = true;
-        }
+    private void PrepareToStick() {
+        if(!isGrounded && !IsWalled())
+        readyToStick = true;
     }
 }

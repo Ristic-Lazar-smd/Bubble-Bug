@@ -24,14 +24,10 @@ public class DasherDoubleJump : PlayerMovement {
     }
 
     private void AirJumpLeft() {
-        if (jumpCounter == stats.maxJumps) {
-            if (!isWallJump && direction == 1) Flip();
-        }
+        if (jumpCounter >= stats.maxJumps && !isWallJump && direction == 1) Flip();
     }
 
     private void AirJumpRight() {
-        if (jumpCounter == stats.maxJumps) {
-            if (!isWallJump && direction == -1) Flip();
-        }
+        if (jumpCounter >= stats.maxJumps && !isWallJump && direction == -1) Flip();
     }
 }
