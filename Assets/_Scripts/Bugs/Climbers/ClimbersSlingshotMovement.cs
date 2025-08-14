@@ -78,12 +78,13 @@ public class ClimbersSlingshotMovement : PlayerMovement {
         if (slingshotOrigin != Vector2.zero && isSlinging) {
 
             //if (dragVector.magnitude < cancelTreshold) { isSlinging = false; }
-
+            //rb.linearVelocity = Vector2.zero;
+            Flip();
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             base.jumpCounter += 2;
+            Debug.Log((-dragVector * slingForce) + "  govna");
             rb.AddForce(-dragVector * slingForce, ForceMode2D.Impulse);
-            Flip();
             isSlinging = false;
             slingshotOrigin = Vector2.zero;
         }
@@ -95,7 +96,7 @@ public class ClimbersSlingshotMovement : PlayerMovement {
     }
 
     private void PrepareToStick() {
-        if(!isGrounded && !IsWalled())
+        if(!isGrounded)
         readyToStick = true;
     }
 }

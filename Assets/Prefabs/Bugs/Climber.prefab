@@ -177,7 +177,7 @@ MonoBehaviour:
     m_Bits: 64
   canWallSlide: 1
   canWallJump: 1
-  slingForce: 4
+  slingForce: 5
   maxDragDistance: 2
   cancelTreshold: 0.2
 --- !u!114 &3857717733268473810
