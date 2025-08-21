@@ -12,8 +12,7 @@ public class SwipeDetection : MonoBehaviour
     private float endTime;
     private Coroutine corutine;
 
-    [SerializeField] private float minimumDistance = 0.2f;
-    [SerializeField] private float maximumTime = 1f;
+    [SerializeField] private float minimumDistance = 1f;
     [SerializeField, Range(0f, 1f)] private float directionThreshold = 0.9f;
     [SerializeField] private GameObject trail;
     [SerializeField] private bool debug;
@@ -25,23 +24,38 @@ public class SwipeDetection : MonoBehaviour
 
     public event Action OnAnySwipe;
 
+    private bool isSwiping;
+
     private void Awake() {
         inputManager = InputManager.Instance;
     }
 
+    private void Update()
+    {
+        if (isSwiping)
+        {
+            if (Vector2.Distance(startPosition, inputManager.PrimaryPosition()) >= minimumDistance)
+            {
+                ConfirmSwipe(inputManager.PrimaryPosition());
+                isSwiping = false;
+            }
+        }
+    }
+
     private void OnEnable() {
         inputManager.OnStartTouch += SwipeStart;
-        inputManager.OnEndTouch += SwipeEnd;
+        inputManager.OnEndTouch += CancelSwipe;
     }
 
     private void OnDisable() {
         inputManager.OnStartTouch -= SwipeStart;
-        inputManager.OnEndTouch -= SwipeEnd;
+        inputManager.OnEndTouch -= CancelSwipe;
     }
 
-    private void SwipeStart(Vector2 position, float time) {
+    private void SwipeStart(Vector2 position)
+    {
+        isSwiping = true;
         startPosition = position;
-        startTime = time;
         trail.SetActive(true);
         trail.transform.position = position;
         corutine = StartCoroutine(Trail());
@@ -54,24 +68,27 @@ public class SwipeDetection : MonoBehaviour
         }
     }
 
-    private void SwipeEnd(Vector2 position, float time) {
+    private void ConfirmSwipe(Vector2 position) {
+        endPosition = position;
         trail.SetActive(false);
         StopCoroutine(corutine);
-        endPosition = position;
-        endTime = time;
         DetectSwipe();
+    }
 
+    private void CancelSwipe(Vector2 position) {
+        isSwiping = false;
+        endPosition = position;
+        trail.SetActive(false);
+        StopCoroutine(corutine);
     }
 
     private void DetectSwipe() {
-        if (Vector3.Distance(startPosition, endPosition) >= minimumDistance && (endTime - startTime) <= maximumTime) {
             if(debug) Debug.DrawLine(startPosition, endPosition, Color.red, 5f);
             Vector3 direction = endPosition - startPosition;
             Vector2 direction2D = new Vector2(direction.x, direction.y).normalized;
 
             OnAnySwipe?.Invoke();
             SwipeDirection(direction2D);
-        }
     }
 
     private void SwipeDirection(Vector2 direction) {

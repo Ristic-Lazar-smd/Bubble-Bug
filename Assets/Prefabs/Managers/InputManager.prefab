@@ -59,8 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e4b7e28fb768f4d8936a22819a0686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumDistance: 0.2
-  maximumTime: 1
+  minimumDistance: 1
   directionThreshold: 0.9
   trail: {fileID: 2777186358054214725}
   debug: 0
