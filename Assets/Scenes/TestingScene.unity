@@ -2483,7 +2483,7 @@ PrefabInstance:
     - target: {fileID: 8885563042438559513, guid: f34e98ad9814d944f98221cfcbeb1290, type: 3}
       propertyPath: playerBasePrefab
       value: 
-      objectReference: {fileID: 4565522116996089589, guid: bc203335168ac754cb6eab23853ad389, type: 3}
+      objectReference: {fileID: 4565522116996089589, guid: 7c091bbe308b1f541a4d8655f5173067, type: 3}
     - target: {fileID: 8885563042438559513, guid: f34e98ad9814d944f98221cfcbeb1290, type: 3}
       propertyPath: playerDasherPrefab
       value: 
