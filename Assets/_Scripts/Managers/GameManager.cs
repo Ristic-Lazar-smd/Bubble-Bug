@@ -8,9 +8,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playerClimberPrefab;
     [SerializeField] private GameObject playerDasherPrefab;
     [SerializeField] private GameObject scoreboard;
+    [SerializeField] private GameObject deathLine;
     CameraManager cameraManager;
     LevelManager levelManager;
-    GameObject playerInstance;
+    public GameObject playerInstance;
 
     void Awake()
     {
@@ -33,18 +34,21 @@ public class GameManager : MonoBehaviour
     {
         playerInstance = Instantiate(playerBasePrefab);
         CameraManager.Instance.GetCameraByLabel("PlayCamera").virtualCamera.Follow = playerInstance.transform;
+        AfterPlayerSpawn();
     }
     public void SpawnClimberPlayer()
     {
         playerInstance = Instantiate(playerClimberPrefab);
         CameraManager.Instance.GetCameraByLabel("PlayCamera").virtualCamera.Follow = playerInstance.transform;
+        AfterPlayerSpawn();
     }
     public void SpawnDasherPlayer()
     {
         playerInstance = Instantiate(playerDasherPrefab);
         CameraManager.Instance.GetCameraByLabel("PlayCamera").virtualCamera.Follow = playerInstance.transform;
+        AfterPlayerSpawn();
     }
-    //Quick fiz za spawn razlicitih buba na dugme
+    //Quick fix za spawn razlicitih buba na dugme
 
     //Main menu dugme odradi prvo startplay po onda nekog playera spawnuje
     public void StartPlay() {
@@ -58,6 +62,9 @@ public class GameManager : MonoBehaviour
     }
     public void RestartGame(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void AfterPlayerSpawn(){
+        deathLine.SetActive(true);
     }
     
 }

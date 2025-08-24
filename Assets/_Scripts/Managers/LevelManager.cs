@@ -92,7 +92,6 @@ public class LevelManager : MonoBehaviour
         var biomeRooms = allLevels.Where(r => 
             r.Biom == currentBiome && 
             r.Difficulty == currentDifficulty).ToList();
-            
 
         // Failsafe if no rooms with current filters
         if (biomeRooms.Count == 0){
@@ -102,16 +101,43 @@ public class LevelManager : MonoBehaviour
         if (previousRoom != null && biomeRooms.Count > 1){
             biomeRooms = biomeRooms.Where(r => r != previousRoom).ToList();
         }
+
+        //---
+        float totalWeight = biomeRooms.Sum(r => r.weight);
+        float roll = Random.value * totalWeight;
+        LevelInfo picked = biomeRooms[0]; // fallback
+
+        foreach (var room in biomeRooms){
+            if (roll < room.weight){
+                picked = room;
+                break;
+            }
+            roll -= room.weight;
+        }
+        // Decay its weight so it becomes less likely next time
+        picked.weight *= 0.5f;
+        if (picked.weight < 0.1f) picked.weight = 0.1f; // don't let it vanish completely
+        selectedRoom = picked;
+        previousRoom = selectedRoom;
+
+
+        /*
         // Select random room from filtered list
         selectedRoom = biomeRooms[Random.Range(0, biomeRooms.Count)];
-        previousRoom = selectedRoom;
+        previousRoom = selectedRoom;*/
+
+        //---
+
 
         //Debug.Log($"Spawning {selectedRoom.LevelPrefab.name} " + $"(Biome: {currentBiome}, " + $"Difficulty: {currentDifficulty}");
         scoreQueue.Enqueue(selectedRoom.Score);
         Debug.Log(selectedRoom.Score);
         currentBiomeRoomsLeft--;
         return selectedRoom;
+
     }
+
+
 
     private void SelectNewBiome(){
         // Don't select the same biome twice in a row if possible   

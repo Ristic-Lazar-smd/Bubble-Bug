@@ -28,4 +28,7 @@ public class LevelInfo : ScriptableObject
     
     public GameObject LevelPrefab;
 
+    [Tooltip("Weight for random selection, weight < 1 less likely to spawn")]
+    public float weight = 1f; 
+
 }

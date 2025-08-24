@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6b0f21f6816084ea063bf175995ce3, type: 3}
   m_Name: Level11
   m_EditorClassIdentifier: 
-  Difficulty: 1
-  Score: 1
+  Difficulty: 2
+  Score: 5
   Biom: 0
   Gameplay: 0
   LevelPrefab: {fileID: 7039044309578796303, guid: 794ac197bd5ae6a4ba3229ca3e6aa6f7, type: 3}
+  weight: 0.1
